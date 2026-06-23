@@ -2250,8 +2250,10 @@ document.getElementById('resetQuizBtn').addEventListener('click', () => {
    INITIAL LOAD
    ----------------------------- */
 
-populateDropdown();
-renderSection();
+document.addEventListener("DOMContentLoaded", () => {
+    populateDropdown();
+    renderSection();
+});
 
 </script>
 
