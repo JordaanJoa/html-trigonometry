@@ -107,20 +107,40 @@
   </style>
 </head>
 <body>
-<header>
-  <h1>Grade 11 Trigonometry – CAPS Interactive</h1>
-  <p>Interactive, bilingual, CAPS‑aligned summaries and quizzes</p>
-</header>
+  <header>
+    <h1>Grade 11 Trigonometry – CAPS Interactive</h1>
+  </header>
 
-<div class="container">
-  <div class="top-bar">
-    <div><strong>Grade 11 Topics / Onderwerpe:</strong></div>
+  <div class="container">
+    <!-- Language Switch Buttons -->
     <div class="lang-switch">
-      <span><strong>Language / Taal:</strong></span>
       <button class="lang-btn active" data-lang="en">English</button>
       <button class="lang-btn" data-lang="af">Afrikaans</button>
     </div>
+
+    <!-- Topic Dropdown -->
+    <div class="dropdown">
+      <label for="topicSelect">Select Topic:</label>
+      <select id="topicSelect"></select>
+    </div>
+
+    <!-- Section Display -->
+    <h2 id="sectionTitle"></h2>
+    <div id="sectionSummary"></div>
+
+    <!-- Tabs and Content -->
+    <div id="sectionTabs"></div>
+    <div id="sectionContent"></div>
+
+    <!-- Quiz Area -->
+    <h3 id="quizTitle"></h3>
+    <div id="quizContainer"></div>
+    <div id="quizResult"></div>
   </div>
+
+  <!-- Link your JavaScript file -->
+  <script src="trig_grade11_script.js"></script>
+</body>
 
   <div class="section-tabs" id="sectionTabs"></div>
 
@@ -2040,6 +2060,38 @@ const submitQuizBtn = document.getElementById('submitQuizBtn');
 const resetQuizBtn = document.getElementById('resetQuizBtn');
 const quizResultEl = document.getElementById('quizResult');
 
+// -------------------------------
+// DROPDOWN FUNCTION
+// -------------------------------
+function populateDropdown() {
+    const topicSelect = document.getElementById('topicSelect');
+    topicSelect.innerHTML = '';
+
+    data.sections.forEach(section => {
+        const option = document.createElement('option');
+        option.value = section.id;
+        option.textContent = section.title[currentLang];
+        topicSelect.appendChild(option);
+    });
+
+    topicSelect.addEventListener('change', renderSection);
+}
+
+// -------------------------------
+// RENDER SECTION (MAIN FUNCTION)
+// -------------------------------
+function renderSection() {
+    const topicSelect = document.getElementById('topicSelect');
+    const selectedId = topicSelect.value || data.sections[0].id;
+    const section = data.sections.find(s => s.id === selectedId);
+
+    document.getElementById('sectionTitle').innerHTML = section.title[currentLang];
+    document.getElementById('sectionSummary').innerHTML = section.summary[currentLang];
+
+    renderSectionTabs(section);
+    renderSectionContent(section);
+}
+        
 function renderSectionTabs() {
   sectionTabsDiv.innerHTML = '';
   data.sections.forEach(sec => {
@@ -2070,3 +2122,12 @@ function renderSectionContent() {
 
 function renderQuiz(questions) {
   quizContainerEl.inner
+
+ // -------------------------------
+// INITIAL PAGE LOAD
+// -------------------------------
+document.addEventListener("DOMContentLoaded", () => {
+    populateDropdown();
+    renderSection();
+});
+   
