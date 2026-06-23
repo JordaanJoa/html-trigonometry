@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 11 Trigonometry – CAPS Interactive</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #1565C0;
+      color: white;
+      padding: 15px 20px;
+      text-align: center;
+    }
+    .container {
+      padding: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .lang-switch {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    button.lang-btn {
+      padding: 8px 14px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      background-color: #e0e0e0;
+      color: #333;
+      font-size: 14px;
+    }
+    button.lang-btn.active {
+      background-color: #1565C0;
+      color: white;
+    }
+    .section-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 15px;
+    }
+    .section-tabs button {
+      padding: 6px 12px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      background-color: #eeeeee;
+      font-size: 13px;
+    }
+    .section-tabs button.active {
+      background-color: #2E7D32;
+      color: white;
+    }
+    .panel {
+      background-color: white;
+      border-radius: 6px;
+      padding: 15px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    h2 {
+      margin-top: 0;
+      color: #1565C0;
+    }
+    h3 {
+      margin-top: 0;
+      color: #2E7D32;
+    }
+    .summary {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+    .summary p {
+      margin: 4px 0;
+    }
+    .cognitive-levels {
+      margin: 10px 0;
+      font-size: 13px;
+    }
+    .cognitive-levels span {
+      display: inline-block;
+      margin-right: 10px;
+    }
+    .quiz {
+      margin-top: 10px;
+    }
+    .question {
+      margin-bottom: 12px;
+      padding: 8px;
+      border-radius: 4px;
+      background-color: #f9f9f9;
+    }
+    .question strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+    .options label {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 14px;
+    }
+    .level-tag {
+      font-size: 11px;
+      color: #555;
+    }
+    .btn-row {
+      margin-top: 10px;
+    }
+    .btn-row button {
+      padding: 6px 12px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      background-color: #1565C0;
+      color: white;
+      font-size: 13px;
+      margin-right: 8px;
+    }
+    .result {
+      margin-top: 8px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .note {
+      font-size: 12px;
+      color: #666;
+      margin-top: 8px;
+    }
+    @media (max-width: 700px) {
+      .top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Grade 11 Trigonometry – CAPS Interactive</h1>
+  <p>Interactive, bilingual, CAPS‑aligned summaries and quizzes</p>
+</header>
+
+<div class="container">
+  <div class="top-bar">
+    <div><strong>Grade 11 Topics / Onderwerpe:</strong></div>
+    <div class="lang-switch">
+      <span><strong>Language / Taal:</strong></span>
+      <button class="lang-btn active" data-lang="en">English</button>
+      <button class="lang-btn" data-lang="af">Afrikaans</button>
+    </div>
+  </div>
+
+  <div class="section-tabs" id="sectionTabs"></div>
+
+  <div class="panel">
+    <h2 id="sectionTitle"></h2>
+    <div class="summary" id="sectionSummary"></div>
+
+    <div class="cognitive-levels">
+      <strong>Cognitive level distribution / Kognitiewe vlakverdeling:</strong><br>
+      <span>Level 1 – Knowledge / Kennis: 20%</span>
+      <span>Level 2 – Routine Procedure / Roetineprosedure: 35%</span>
+      <span>Level 3 – Complex Procedure / Kompleksprosedure: 30%</span>
+      <span>Level 4 – Problem Solving / Probleemoplossing: 15%</span>
+    </div>
+
+    <hr>
+
+    <h3 id="quizTitle"></h3>
+    <div class="quiz" id="quizContainer"></div>
+    <div class="btn-row">
+      <button id="submitQuizBtn">Submit / Dien in</button>
+      <button id="resetQuizBtn">Reset / Herstel</button>
+    </div>
+    <div class="result" id="quizResult"></div>
+    <div class="note">
+      Teacher note / Onderwysersnota:  
+      Each topic can have 10+ questions per cognitive level. Duplicate the pattern in the data structure to enrich further.
+    </div>
+  </div>
+</div>
+
+<script>
+  // ---------- DATA MODEL: GRADE 11 ----------
+  const data = {
+    sections: [
+      {
+        id: 'g11-basics',
+        title: {
+          en: 'Trig Basics: Ratios & Right Triangles',
+          af: 'Trig‑basics: Verhoudings & Regte Driehoeke'
+        },
+        summary: {
+          en: `
+            <p><strong>Focus:</strong> Trigonometric ratios (sin, cos, tan) in right‑angled triangles.</p>
+            <p>CAPS links: Definitions of sine, cosine and tangent; solving right‑angled triangles; heights and distances.</p>
+            <p>Key ideas: Opposite, adjacent, hypotenuse; ratio definitions; calculator use; angle of elevation and depression.</p>
+          `,
+          af: `
+            <p><strong>Fokus:</strong> Trigonometriese verhoudings (sin, cos, tan) in regte driehoeke.</p>
+            <p>CAPS‑skakels: Definisies van sinus, cosinus en tangens; oplossing van regte driehoeke; hoogtes en afstande.</p>
+            <p>Belangrike idees: Oorstaande, aangrensende, skuinsy; verhoudingsdefinisies; sakrekenaargebruik; hoogte‑ en dalingshoeke.</p>
+          `
+        },
+        quizTitle: {
+          en: 'Quiz – Trig Basics (Gr 11)',
+          af: 'Vraelys – Trig‑basics (Gr 11)'
+        },
+        // 40 QUESTIONS: 10 per level
+        questions: [
+          // LEVEL 1 – KNOWLEDGE (10)
+          {
+            id: 101,
+            level: 1,
+            text: {
+              en: 'In a right‑angled triangle, which side is opposite the right angle?',
+              af: 'In ’n regte driehoek, watter sy lê teenoor die regte hoek?'
+            },
+            options: {
+              en: ['Opposite side', 'Adjacent side', 'Hypotenuse', 'Base'],
+              af: ['Oorstaande sy', 'Aangrensende sy', 'Skuinsy', 'Basis']
+            },
+            correctIndex: 2
+          },
+          {
+            id: 102,
+            level: 1,
+            text: {
+              en: 'Which ratio is defined as opposite ÷ hypotenuse?',
+              af: 'Watter verhouding word gedefinieer as oorstaande ÷ skuinsy?'
+            },
+            options: {
+              en: ['sin θ', 'cos θ', 'tan θ', 'cot θ'],
+              af: ['sin θ', 'cos θ', 'tan θ', 'cot θ']
+            },
+            correctIndex: 0
+          },
+          {
+            id: 103,
+            level: 1,
+            text: {
+              en: 'Which ratio is adjacent ÷ hypotenuse?',
+              af: 'Watter verhouding is aangrensend ÷ skuinsy?'
+            },
+            options: {
+              en: ['sin θ', 'cos θ', 'tan θ', 'cot θ'],
+              af: ['sin θ', 'cos θ', 'tan θ', 'cot θ']
+            },
+            correctIndex: 1
+          },
+          {
+            id: 104,
+            level: 1,
+            text: {
+              en: 'Which ratio is opposite ÷ adjacent?',
+              af: 'Watter verhouding is oorstaande ÷ aangrensend?'
+            },
+            options: {
+              en: ['sin θ', 'cos θ', 'tan θ', 'cot θ'],
+              af: ['sin θ', 'cos θ', 'tan θ', 'cot θ']
+            },
+            correctIndex: 2
+          },
+          {
+            id: 105,
+            level: 1,
+            text: {
+              en: 'The abbreviation SOH in SOH‑CAH‑TOA refers to:',
+              af: 'Die afkorting SOH in SOH‑CAH‑TOA verwys na:'
+            },
+            options: {
+              en: ['sin = opposite/hypotenuse', 'sin = adjacent/hypotenuse', 'sin = opposite/adjacent', 'sin = hypotenuse/opposite'],
+              af: ['sin = oorstaande/skuinsy', 'sin = aangrensend/skuinsy', 'sin = oorstaande/aangrensend', 'sin = skuinsy/oorstaande']
+            },
+            correctIndex: 0
+          },
+          {
+            id: 106,
+            level: 1,
+            text: {
+              en: 'The abbreviation CAH in SOH‑CAH‑TOA refers to:',
+              af: 'Die afkorting CAH in SOH‑CAH‑TOA verwys na:'
+            },
+            options: {
+              en: ['cos = opposite/hypotenuse', 'cos = adjacent/hypotenuse', 'cos = opposite/adjacent', 'cos = hypotenuse/adjacent'],
+              af: ['cos = oorstaande/skuinsy', 'cos = aangrensend/skuinsy', 'cos = oorstaande/aangrensend', 'cos = skuinsy/aangrensend']
+            },
+            correctIndex: 1
+          },
+          {
+            id: 107,
+            level: 1,
+            text: {
+              en: 'The abbreviation TOA in SOH‑CAH‑TOA refers to:',
+              af: 'Die afkorting TOA in SOH‑CAH‑TOA verwys na:'
+            },
+            options: {
+              en: ['tan = opposite/adjacent', 'tan = adjacent/opposite', 'tan = opposite/hypotenuse', 'tan = hypotenuse/adjacent'],
+              af: ['tan = oorstaande/aangrensend', 'tan = aangrensend/oorstaande', 'tan = oorstaande/skuinsy', 'tan = skuinsy/aangrensend']
+            },
+            correctIndex: 0
+          },
+          {
+            id: 108,
+            level: 1,
+            text: {
+              en: 'In a right‑angled triangle, the right angle is:',
+              af: 'In ’n regte driehoek is die regte hoek:'
+            },
+            options: {
+              en: ['30°', '45°', '60°', '90°'],
+              af: ['30°', '45°', '60°', '90°']
+            },
+            correctIndex: 3
+          },
+          {
+            id: 109,
+            level: 1,
+            text: {
+              en: 'Which function is usually used for “angle of elevation” problems?',
+              af: 'Watter funksie word gewoonlik vir “hoogtehoek”-probleme gebruik?'
+            },
+            options: {
+              en: ['sin', 'cos', 'tan', 'cot'],
+              af: ['sin', 'cos', 'tan', 'cot']
+            },
+            correctIndex: 2
+          },
+          {
+            id: 110,
+            level: 1,
+            text: {
+              en: 'The side opposite the angle θ is called the:',
+              af: 'Die sy teenoor die hoek θ word genoem die:'
+            },
+            options: {
+              en: ['Opposite side', 'Adjacent side', 'Hypotenuse', 'Base'],
+              af: ['Oorstaande sy', 'Aangrensende sy', 'Skuinsy', 'Basis']
+            },
+            correctIndex: 0
+          },
+
+          // LEVEL 2 – ROUTINE PROCEDURE (10)
+          {
+            id: 201,
+            level: 2,
+            text: {
+              en: 'A right‑angled triangle has hypotenuse 10 and opposite side 6. Find sin(θ).',
+              af: '’n Regte driehoek het ’n skuinsy van 10 en oorstaande sy van 6. Bepaal sin(θ).'
+            },
+            options: {
+              en: ['0.4', '0.6', '0.8', '1.2'],
+              af: ['0,4', '0,6', '0,8', '1,2']
+            },
+            correctIndex: 1
+          },
+          {
+            id: 202,
+            level: 2,
+            text: {
+              en: 'In a right‑angled triangle, adjacent = 5 and hypotenuse = 13. Find cos(θ).',
+              af: 'In ’n regte driehoek is aangrensend = 5 en skuinsy = 13. Bepaal cos(θ).'
+            },
+            options: {
+              en: ['5/13', '12/13', '13/5', '5/12'],
+              af: ['5/13', '12/13', '13/5', '5/12']
+            },
+            correctIndex: 0
+          },
+          {
+            id: 203,
+            level: 2,
+            text: {
+              en: 'Opposite = 7 and adjacent = 24. Find tan(θ).',
+              af: 'Oorstaande = 7 en aangrensend = 24. Bepaal tan(θ).'
+            },
+            options: {
+              en: ['7/24', '24/7', '25/7', '25/24'],
+              af: ['7/24', '24/7', '25/7', '25/24']
+            },
+            correctIndex: 0
+          },
+          {
+            id: 204,
+            level: 2,
+            text: {
+              en: 'In a right‑angled triangle, opposite = 9 and hypotenuse = 15. Find θ (to nearest degree).',
+              af: 'In ’n regte driehoek is oorstaande = 9 en skuinsy = 15. Bepaal θ (tot naaste graad).'
+            },
+            options: {
+              en: ['37°', '42°', '53°', '60°'],
+              af: ['37°', '42°', '53°', '60°']
+            },
+            correctIndex: 2
+          },
+          {
+            id: 205,
+            level: 2,
+            text: {
+              en: 'A ladder of length 5 m makes an angle of 60° with the ground. Find the height reached on the wall.',
+              af: '’n Leer van 5 m maak ’n hoek van 60° met die grond. Bepaal die hoogte op die muur.'
+            },
+            options: {
+              en: ['2.5 m', '4.3 m', '5.0 m', '3.0 m'],
+              af: ['2,5 m', '4,3 m', '5,0 m', '3,0 m']
+            },
+            correctIndex: 1
+          },
+          {
+            id: 206,
+            level: 2,
+            text: {
+              en: 'A building is 20 m high. The distance from the observer to the building is 15 m. Find tan(θ).',
+              af: '’n Gebou is 20 m hoog. Die afstand van die waarnemer tot die gebou is 15 m. Bepaal tan(θ).'
+            },
+            options: {
+              en: ['4/3', '3/4', '5/4', '4/5'],
+              af: ['4/3', '3/4', '5/4', '4/5']
+            },
+            correctIndex: 0
+          },
+          {
+            id: 207,
+            level: 2,
+            text: {
+              en: 'If sin(θ) = 0.8 in a right‑angled triangle, what is the opposite side when hypotenuse = 10?',
+              af: 'As sin(θ) = 0,8 in ’n regte driehoek, wat is die oorstaande sy as skuinsy = 10?'
+            },
+            options: {
+              en: ['6', '8', '10', '12'],
+              af: ['6', '8', '10', '12']
+            },
+            correctIndex: 1
+          },
+          {
+            id: 208,
+            level: 2,
+            text: {
+              en: 'If cos(θ) = 0.6 and hypotenuse = 25, find the adjacent side.',
+              af: 'As cos(θ) = 0,6 en skuinsy = 25, bepaal die aangrensende sy.'
+            },
+            options: {
+              en: ['10', '12', '15', '20'],
+              af: ['10', '12', '15', '20']
+            },
+            correctIndex: 3
+          },
+          {
+            id: 209,
+            level: 2,
+            text: {
+              en: 'If tan(θ) = 3/4 and adjacent = 8, find the opposite side.',
+              af: 'As tan(θ) = 3/4 en aangrensend = 8, bepaal die oorstaande sy.'
+            },
+            options: {
+              en: ['4', '6', '8', '10'],
+              af: ['4', '6', '8', '10']
+            },
+            correctIndex: 1
+          },
+          {
+            id: 210,
+            level: 2,
+            text: {
+              en: 'In a right‑angled triangle, hypotenuse = 13 and one leg = 5. Find the other leg.',
+              af: 'In ’n regte driehoek is skuinsy = 13 en een sy = 5. Bepaal die ander sy.'
+            },
+            options: {
+              en: ['8', '10', '12', '9'],
+              af: ['8', '10', '12', '9']
+            },
+            correctIndex: 0
+          },
+
+          // LEVEL 3 – COMPLEX PROCEDURE (10)
+          {
+            id: 301,
+            level: 3,
+            text: {
+              en: 'A ladder of length 5 m leans against a wall making an angle of 70° with the ground. Find the height reached on the wall (to 1 decimal place).',
+              af: '’n Leer van 5 m leun teen ’n muur en maak ’n hoek van 70° met die grond. Bepaal die hoogte op die muur (tot 1 desimale plek).'
+            },
+            options: {
+              en: ['4.7 m', '3.2 m', '1.7 m', '4.2 m'],
+              af: ['4,7 m', '3,2 m', '1,7 m', '4,2 m']
+            },
+            correctIndex: 0
+          },
+          {
+            id: 302,
+            level: 3,
+            text: {
+              en: 'A ramp rises 1.5 m over a horizontal distance of 6 m. Find the angle of inclination (to nearest degree).',
+              af: '’n Oprit styg 1,5 m oor ’n horisontale afstand van 6 m. Bepaal die hellingshoek (tot naaste graad).'
+            },
+            options: {
+              en: ['14°', '30°', '45°', '60°'],
+              af: ['14°', '30°', '45°', '60°']
+            },
+            correctIndex: 0
+          },
+          {
+            id: 303,
+            level: 3,
+            text: {
+              en: 'A kite is flying at a height of 25 m with the string making an angle of 40° with the ground. Find the length of the string.',
+              af: '’n Vlieër vlieg op ’n hoogte van 25 m en die tou maak ’n hoek van 40° met die grond. Bepaal die lengte van die tou.'
+            },
+            options: {
+              en: ['≈ 39 m', '≈ 25 m', '≈ 16 m', '≈ 20 m'],
+              af: ['≈ 39 m', '≈ 25 m', '≈ 16 m', '≈ 20 m']
+            },
+            correctIndex: 0
+          },
+          {
+            id: 304,
+            level: 3,
+            text: {
+              en: 'A person stands 30 m from a tree. The angle of elevation to the top is 35°. Find the height of the tree.',
+              af: '’n Persoon staan 30 m van ’n boom. Die hoogtehoek na die bokant is 35°. Bepaal die hoogte van die boom.'
+            },
+            options: {
+              en: ['≈ 21.0 m', '≈ 17.2 m', '≈ 25.0 m', '≈ 10.5 m'],
+              af: ['≈ 21,0 m', '≈ 17,2 m', '≈ 25,0 m', '≈ 10,5 m']
+            },
+            correctIndex: 1
+          },
+          {
+            id: 305,
+            level: 3,
+            text: {
+              en: 'A ship sails 8 km east and then 6 km north. Find the distance from the starting point.',
+              af: '’n Skip vaar 8 km oos en dan 6 km noord. Bepaal die afstand vanaf die beginpunt.'
+            },
+            options: {
+              en: ['10 km', '12 km', '14 km', '7 km'],
+              af: ['10 km', '12 km', '14 km', '7 km']
+            },
+            correctIndex: 0
+          },
+          {
+            id: 306,
+            level: 3,
+            text: {
+              en: 'A tower is 50 m high. A cable is attached from the top to a point on the ground 30 m away. Find the angle the cable makes with the ground.',
+              af: '’n Toring is 50 m hoog. ’n Kabel is van die bokant na ’n punt 30 m weg op die grond geheg. Bepaal die hoek wat die kabel met die grond maak.'
+            },
+            options: {
+              en: ['30°', '40°', '50°', '60°'],
+              af: ['30°', '40°', '50°', '60°']
+            },
+            correctIndex: 3
+          },
+          {
+            id: 307,
+            level: 3,
+            text: {
+              en: 'A right‑angled triangle has sides 9, 12 and 15. Which side is the hypotenuse?',
+              af: '’n Regte driehoek het sye 9, 12 en 15. Watter sy is die skuinsy?'
+            },
+            options: {
+              en: ['9', '12', '15', 'None'],
+              af: ['9', '12', '15', 'Geen']
+            },
+            correctIndex: 2
+          },
+          {
+            id: 308,
+            level: 3,
+            text: {
+              en: 'In a right‑angled triangle, the angle at A is 30° and the hypotenuse is 12. Find the side opposite A.',
+              af: 'In ’n regte driehoek is die hoek by A 30° en die skuinsy is 12. Bepaal die oorstaande sy van A.'
+            },
+            options: {
+              en: ['6', '4√3', '3', '12'],
+              af: ['6', '4√3', '3', '12']
+            },
+            correctIndex: 0
+          },
+          {
+            id: 309,
+            level: 3,
+            text: {
+              en: 'In a right‑angled triangle, the angle at B is 60° and the hypotenuse is 10. Find the adjacent side to angle B.',
+              af: 'In ’n regte driehoek is die hoek by B 60° en die skuinsy is 10. Bepaal die aangrensende sy by hoek B.'
+            },
+            options: {
+              en: ['5', '5√3', '10', '2√3'],
+              af: ['5', '5√3', '10', '2√3']
+            },
+            correctIndex: 0
+          },
+          {
+            id: 310,
+            level: 3,
+            text: {
+              en: 'A person walks 40 m up a slope that makes an angle of 25° with the horizontal. How much higher is the person than the starting point?',
+              af: '’n Persoon loop 40 m op ’n helling wat ’n hoek van 25° met die horisontaal maak. Hoeveel hoër is die persoon as die beginpunt?'
+            },
+            options: {
+              en: ['≈ 17.0 m', '≈ 10.0 m', '≈ 20.0 m', '≈ 25.0 m'],
+              af: ['≈ 17,0 m', '≈ 10,0 m', '≈ 20,0 m', '≈ 25,0 m']
+            },
+            correctIndex: 0
+          },
+
+          // LEVEL 4 – PROBLEM SOLVING (10)
+          {
+            id: 401,
+            level: 4,
+            text: {
+              en: 'A surveyor stands 40 m from a building. The angle of elevation to the top is 35°. A flagpole stands on the roof and the angle of elevation to its top is 42°. Find the height of the flagpole.',
+              af: '’n Landmeter staan 40 m van ’n gebou. Die hoogtehoek na die bokant is 35°. ’n Vlagpaal staan op die dak en die hoogtehoek na sy bokant is 42°. Bepaal die hoogte van die vlagpaal.'
+            },
+            options: {
+              en: ['≈ 4.3 m', '≈ 5.8 m', '≈ 3.1 m', '≈ 2.7 m'],
+              af: ['≈ 4,3 m', '≈ 5,8 m', '≈ 3,1 m', '≈ 2,7 m']
+            },
+            correctIndex: 0
+          },
+          {
+            id: 402,
+            level: 4,
+            text: {
+              en: 'Two observers stand 30 m apart on level ground, both facing a tower. The angles of elevation to the top are 28° and 35°. Estimate the height of the tower.',
+              af: 'Twee waarnemers staan 30 m uitmekaar op gelyke grond en kyk na ’n toring. Die hoogtehoeke na die bokant is 28° en 35°. Skat die hoogte van die toring.'
+            },
+            options: {
+              en: ['≈ 20 m', '≈ 25 m', '≈ 30 m', '≈ 35 m'],
+              af: ['≈ 20 m', '≈ 25 m', '≈ 30 m', '≈ 35 m']
+            },
+            correctIndex: 1
+          },
+          {
+            id: 403,
+            level: 4,
+            text: {
+              en: 'A cable car travels from the base station to the top of a hill. The horizontal distance is 500 m and the vertical rise is 180 m. Find the angle of inclination of the cable.',
+              af: '’n Kabelkar beweeg van die basisstasie na die bokant van ’n heuwel. Die horisontale afstand is 500 m en die vertikale styging is 180 m. Bepaal die hellingshoek van die kabel.'
+            },
+            options: {
+              en: ['≈ 20°', '≈ 25°', '≈ 30°', '≈ 35°'],
+              af: ['≈ 20°', '≈ 25°', '≈ 30°', '≈ 35°']
+            },
+            correctIndex: 1
+          },
+          {
+            id: 404,
+            level: 4,
+            text: {
+              en: 'A rescue team must reach a point on a cliff 60 m above the ground. They can choose a path with a 25° incline or a 35° incline. Which path is shorter and why?',
+              af: '’n Reddingseenheid moet ’n punt op ’n krans 60 m bo die grond bereik. Hulle kan ’n pad met ’n 25°‑helling of ’n 35°‑helling kies. Watter pad is korter en waarom?'
+            },
+            options: {
+              en: ['25° path is shorter', '35° path is shorter', 'Both are equal', 'Cannot be determined'],
+              af: ['25°‑pad is korter', '35°‑pad is korter', 'Albei is gelyk', 'Kan nie bepaal word nie']
+            },
+            correctIndex: 1
+          },
+          {
+            id: 405,
+            level: 4,
+            text: {
+              en: 'A person at the top of a lighthouse sees a boat at an angle of depression of 18°. The lighthouse is 40 m high. How far is the boat from the base of the lighthouse?',
+              af: '’n Persoon bo‑op ’n vuurtoring sien ’n boot teen ’n dalingshoek van 18°. Die vuurtoring is 40 m hoog. Hoe ver is die boot van die voet van die vuurtoring af?'
+            },
+            options: {
+              en: ['≈ 123 m', '≈ 130 m', '≈ 110 m', '≈ 140 m'],
+              af: ['≈ 123 m', '≈ 130 m', '≈ 110 m', '≈ 140 m']
+            },
+            correctIndex: 0
+          },
+          {
+            id: 406,
+            level: 4,
+            text: {
+              en: 'A cellphone tower is 35 m high. From a point on the ground, the angle of elevation to the top is 40°. If a second tower is twice as far away but the same height, what is the new angle of elevation approximately?',
+              af: '’n Selfoontoring is 35 m hoog. Vanaf ’n punt op die grond is die hoogtehoek na die bokant 40°. As ’n tweede toring dubbel so ver weg is maar ewe hoog, wat is die nuwe hoogtehoek ongeveer?'
+            },
+            options: {
+              en: ['≈ 21°', '≈ 30°', '≈ 40°', '≈ 60°'],
+              af: ['≈ 21°', '≈ 30°', '≈ 40°', '≈ 60°']
+            },
+            correctIndex: 0
+          },
+          {
+            id: 407,
+            level: 4,
+            text: {
+              en: 'A bridge crosses a river of width 80 m. A support cable runs from the top of a 30 m pillar on one bank to the base of the pillar on the opposite bank. Find the angle the cable makes with the horizontal.',
+              af: '’n Brug kruis ’n rivier van 80 m wyd. ’n Steunkabel loop van die bokant van ’n 30 m‑pilaar op die een oewer na die voet van ’n pilaar op die oorkantste oewer. Bepaal die hoek wat die kabel met die horisontaal maak.'
+            },
+            options: {
+              en: ['≈ 20°', '≈ 25°', '≈ 30°', '≈ 35°'],
+              af: ['≈ 20°', '≈ 25°', '≈ 30°', '≈ 35°']
+            },
+            correctIndex: 2
+          },
+          {
+            id: 408,
+            level: 4,
+            text: {
+              en: 'A drone rises vertically to a height of 50 m and then flies horizontally 120 m. What is the angle of elevation from the starting point to the drone?',
+              af: '’n Droon styg vertikaal tot ’n hoogte van 50 m en vlieg dan 120 m horisontaal. Wat is die hoogtehoek vanaf die beginpunt na die droon?'
+            },
+            options: {
+              en: ['≈ 22°', '≈ 30°', '≈ 40°', '≈ 45°'],
+              af: ['≈ 22°', '≈ 30°', '≈ 40°', '≈ 45°']
+            },
+            correctIndex: 0
+          },
+          {
+            id: 409,
+            level: 4,
+            text: {
+              en: 'A hillside makes a constant angle of 18° with the horizontal. A hiker climbs 300 m along the slope. How much vertical height has the hiker gained?',
+              af: '’n Heuwel maak ’n konstante hoek van 18° met die horisontaal. ’n Stapper klim 300 m langs die helling. Hoeveel vertikale hoogte het die stapper gewen?'
+            },
+            options: {
+              en: ['≈ 93 m', '≈ 120 m', '≈ 150 m', '≈ 180 m'],
+              af: ['≈ 93 m', '≈ 120 m', '≈ 150 m', '≈ 180 m']
+            },
+            correctIndex: 0
+          },
+          {
+            id: 410,
+            level: 4,
+            text: {
+              en: 'A flagpole stands on top of a building. From a point 25 m away, the angle of elevation to the top of the building is 30°, and to the top of the flagpole is 40°. Find the height of the flagpole.',
+              af: '’n Vlagpaal staan bo‑op ’n gebou. Vanaf ’n punt 25 m weg is die hoogtehoek na die bokant van die gebou 30°, en na die bokant van die vlagpaal 40°. Bepaal die hoogte van die vlagpaal.'
+            },
+            options: {
+              en: ['≈ 3.9 m', '≈ 4.5 m', '≈ 5.2 m', '≈ 6.0 m'],
+              af: ['≈ 3,9 m', '≈ 4,5 m', '≈ 5,2 m', '≈ 6,0 m']
+            },
+            correctIndex: 0
+          }
+        ]
+      },
+
+      // ---------- ADD MORE GRADE 11 TOPICS HERE ----------
+      // Copy the whole object above, change:
+      // id, title.en/af, summary.en/af, quizTitle.en/af, and questions[...]
+      // Example topics:
+      // - g11-graphs
+      // - g11-identities
+      // - g11-applications
+    ]
+  };
+
+  // ---------- STATE ----------
+  let currentLang = 'en';
+  let currentSectionId = data.sections[0].id;
+
+  const langButtons = document.querySelectorAll('.lang-btn');
+  const sectionTabsDiv = document.getElementById('sectionTabs');
+  const sectionTitleEl = document.getElementById('sectionTitle');
+  const sectionSummaryEl = document.getElementById('sectionSummary');
+  const quizTitleEl = document.getElementById('quizTitle');
+  const quizContainerEl = document.getElementById('quizContainer');
+  const submitQuizBtn = document.getElementById('submitQuizBtn');
+  const resetQuizBtn = document.getElementById('resetQuizBtn');
+  const quizResultEl = document.getElementById('quizResult');
+
+  function renderSectionTabs() {
+    sectionTabsDiv.innerHTML = '';
+    data.sections.forEach((sec) => {
+      const btn = document.createElement('button');
+      btn.textContent = sec.title[currentLang];
+      btn.dataset.sectionId = sec.id;
+      btn.classList.add('section-tab-btn');
+      if (sec.id === currentSectionId) {
+        btn.classList.add('active');
+      }
+      btn.addEventListener('click', () => {
+        currentSectionId = sec.id;
+        document.querySelectorAll('.section-tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderSectionContent();
+      });
+      sectionTabsDiv.appendChild(btn);
+    });
+  }
+
+  function renderSectionContent() {
+    const section = data.sections.find(s => s.id === currentSectionId);
+    if (!section) return;
+    sectionTitleEl.innerHTML = section.title[currentLang];
+    sectionSummaryEl.innerHTML = section.summary[currentLang];
+    quizTitleEl.innerHTML = section.quizTitle[currentLang];
+    renderQuiz(section.questions);
+    quizResultEl.textContent = '';
+  }
+
+  function renderQuiz(questions) {
+    quizContainerEl.innerHTML = '';
+    questions.forEach(q => {
+      const qDiv = document.createElement('div');
+      qDiv.classList.add('question');
+
+      const qText = document.createElement('strong');
+      qText.textContent = q.text[currentLang];
+
+      const levelTag = document.createElement('div');
+      levelTag.classList.add('level-tag');
+      const levelNames = {
+        1: 'Level 1 – Knowledge / Kennis',
+        2: 'Level 2 – Routine Procedure / Roetineprosedure',
+        3: 'Level 3 – Complex Procedure / Kompleksprosedure',
+        4: 'Level 4 – Problem Solving / Probleemoplossing'
+      };
+      levelTag.textContent = levelNames[q.level];
+
+      const optionsDiv = document.createElement('div');
+      optionsDiv.classList.add('options');
+      q.options[currentLang].forEach((opt, idx) => {
+        const label = document.createElement('label');
+        const radio = document.createElement('input');
+        radio.type = 'radio';
+        radio.name = 'q' + q.id;
+        radio.value = idx;
+        label.appendChild(radio);
+        label.appendChild(document.createTextNode(' ' + opt));
+        optionsDiv.appendChild(label);
+      });
+
+      qDiv.appendChild(qText);
+      qDiv.appendChild(levelTag);
+      qDiv.appendChild(optionsDiv);
+      quizContainerEl.appendChild(qDiv);
+    });
+  }
+
+  function submitQuiz() {
+    const section = data.sections.find(s => s.id === currentSectionId);
+    if (!section) return;
+
+    const questions = section.questions;
+    let correct = 0;
+    let total = questions.length;
+
+    const levelCounts = {1: 0, 2: 0, 3: 0, 4: 0};
+    const levelCorrect = {1: 0, 2: 0, 3: 0, 4: 0};
+
+    questions.forEach(q => {
+      const selected = document.querySelector('input[name="q' + q.id + '"]:checked');
+      levelCounts[q.level]++;
+      if (selected && parseInt(selected.value) === q.correctIndex) {
+        correct++;
+        levelCorrect[q.level]++;
+      }
+    });
+
+    const percent = Math.round((correct / total) * 100);
+    let msgEn = `You scored ${correct} out of ${total} (${percent}%). `;
+    let msgAf = `Jy het ${correct} uit ${total} behaal (${percent}%). `;
+
+    msgEn += 'Level breakdown: ';
+    msgAf += 'Vlakverdeling: ';
+    [1,2,3,4].forEach(lvl => {
+      if (levelCounts[lvl] > 0) {
+        const p = Math.round((levelCorrect[lvl] / levelCounts[lvl]) * 100);
+        msgEn += `L${lvl}: ${p}% correct; `;
+        msgAf += `V${lvl}: ${p}% korrek; `;
+      }
+    });
+
+    quizResultEl.textContent = currentLang === 'en' ? msgEn : msgAf;
+  }
+
+  function resetQuiz() {
+    const inputs = quizContainerEl.querySelectorAll('input[type="radio"]');
+    inputs.forEach(i => i.checked = false);
+    quizResultEl.textContent = '';
+  }
+
+  langButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      langButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentLang = btn.dataset.lang;
+      renderSectionTabs();
+      renderSectionContent();
+    });
+  });
+
+  submitQuizBtn.addEventListener('click', submitQuiz);
+  resetQuizBtn.addEventListener('click', resetQuiz);
+
+  // INITIAL RENDER
+  renderSectionTabs();
+  renderSectionContent();
+</script>
+</body>
+</html>
