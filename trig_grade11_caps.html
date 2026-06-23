@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grade 11 Trigonometry – CAPS Interactive</title>
+  <title>Grade 11 Trigonometry – CAPS Interactive</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -74,54 +74,21 @@
       box-shadow: 0 1px 4px rgba(0,0,0,0.1);
       margin-bottom: 20px;
     }
-    h2 {
-      margin-top: 0;
-      color: #1565C0;
-    }
-    h3 {
-      margin-top: 0;
-      color: #2E7D32;
-    }
-    .summary {
-      margin-bottom: 15px;
-      text-align: left;
-    }
-    .summary p {
-      margin: 4px 0;
-    }
-    .cognitive-levels {
-      margin: 10px 0;
-      font-size: 13px;
-    }
-    .cognitive-levels span {
-      display: inline-block;
-      margin-right: 10px;
-    }
-    .quiz {
-      margin-top: 10px;
-    }
+    h2 { color: #1565C0; margin-top: 0; }
+    h3 { color: #2E7D32; margin-top: 0; }
+    .summary p { margin: 4px 0; }
+    .cognitive-levels { font-size: 13px; margin: 10px 0; }
+    .quiz { margin-top: 10px; }
     .question {
       margin-bottom: 12px;
       padding: 8px;
       border-radius: 4px;
       background-color: #f9f9f9;
     }
-    .question strong {
-      display: block;
-      margin-bottom: 4px;
-    }
-    .options label {
-      display: block;
-      margin-bottom: 3px;
-      font-size: 14px;
-    }
-    .level-tag {
-      font-size: 11px;
-      color: #555;
-    }
-    .btn-row {
-      margin-top: 10px;
-    }
+    .question strong { display: block; margin-bottom: 4px; }
+    .options label { display: block; margin-bottom: 3px; font-size: 14px; }
+    .level-tag { font-size: 11px; color: #555; }
+    .btn-row { margin-top: 10px; }
     .btn-row button {
       padding: 6px 12px;
       border-radius: 4px;
@@ -132,35 +99,24 @@
       font-size: 13px;
       margin-right: 8px;
     }
-    .result {
-      margin-top: 8px;
-      font-size: 14px;
-      font-weight: bold;
-    }
-    .note {
-      font-size: 12px;
-      color: #666;
-      margin-top: 8px;
-    }
+    .result { margin-top: 8px; font-size: 14px; font-weight: bold; }
+    .note { font-size: 12px; color: #666; margin-top: 8px; }
     @media (max-width: 700px) {
-      .top-bar {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+      .top-bar { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
 <body>
 <header>
-  <h1>Grade 11 Trigonometry – CAPS Interactive</h1>
+  <h1>Grade 11 Trigonometry – CAPS Interactive</h1>
   <p>Interactive, bilingual, CAPS‑aligned summaries and quizzes</p>
 </header>
 
 <div class="container">
   <div class="top-bar">
-    <div><strong>Grade 11 Topics / Onderwerpe:</strong></div>
+    <div><strong>Grade 11 Topics / Onderwerpe:</strong></div>
     <div class="lang-switch">
-      <span><strong>Language / Taal:</strong></span>
+      <span><strong>Language / Taal:</strong></span>
       <button class="lang-btn active" data-lang="en">English</button>
       <button class="lang-btn" data-lang="af">Afrikaans</button>
     </div>
@@ -173,11 +129,11 @@
     <div class="summary" id="sectionSummary"></div>
 
     <div class="cognitive-levels">
-      <strong>Cognitive level distribution / Kognitiewe vlakverdeling:</strong><br>
-      <span>Level 1 – Knowledge / Kennis: 20%</span>
-      <span>Level 2 – Routine Procedure / Roetineprosedure: 35%</span>
-      <span>Level 3 – Complex Procedure / Kompleksprosedure: 30%</span>
-      <span>Level 4 – Problem Solving / Probleemoplossing: 15%</span>
+      <strong>Cognitive level distribution / Kognitiewe vlakverdeling:</strong><br>
+      <span>Level 1 – Knowledge / Kennis: 20%</span>
+      <span>Level 2 – Routine Procedure / Roetineprosedure: 35%</span>
+      <span>Level 3 – Complex Procedure / Kompleksprosedure: 30%</span>
+      <span>Level 4 – Problem Solving / Probleemoplossing: 15%</span>
     </div>
 
     <hr>
@@ -185,19 +141,22 @@
     <h3 id="quizTitle"></h3>
     <div class="quiz" id="quizContainer"></div>
     <div class="btn-row">
-      <button id="submitQuizBtn">Submit / Dien in</button>
-      <button id="resetQuizBtn">Reset / Herstel</button>
+      <button id="submitQuizBtn">Submit / Dien in</button>
+      <button id="resetQuizBtn">Reset / Herstel</button>
     </div>
     <div class="result" id="quizResult"></div>
     <div class="note">
-      Teacher note / Onderwysersnota:  
-      Each topic can have 10+ questions per cognitive level. Duplicate the pattern in the data structure to enrich further.
+      Teacher note / Onderwysersnota: Each topic has 10 questions per cognitive level (40 total). Duplicate the pattern to add more.
     </div>
   </div>
 </div>
 
 <script>
-  // ---------- DATA MODEL: GRADE 11 ----------
+const data = {
+  sections: [
+    // ---------------- TOPIC 1 – TRIG BASICS ----------------
+    { /* full Topic 1 block here (already in your file) */ },
+ // ---------- DATA MODEL: GRADE 11 ----------
   const data = {
     sections: [
       {
@@ -753,25 +712,8 @@
           }
         ]
       },
-
-    // ---------- ADD MORE GRADE 11 TOPICS HERE ----------
-// Copy the whole object above, change:
-// id, title.en/af, summary.en/af, quizTitle.en/af, and questions[...]
-// Example topics:
-// - g11-graphs
-// - g11-identities
-// - g11-applications
-
-{   // 👈 PASTE YOUR TOPIC 2 BLOCK HERE
-    id: 'g11-graphs',
-    title: { … },
-    summary: { … },
-    quizTitle: { … },
-    questions: [ … ]
-},
-
-]
-};
+    // ---------------- TOPIC 2 – TRIG GRAPHS ----------------
+    { /* full Topic 2 block here (the one I gave you earlier) */ },
 {
   id: 'g11-graphs',
   title: {
@@ -1205,149 +1147,878 @@
         af: ['3 sin x + 4', 'sin(3x) + 4', '3 sin(x + 4)', 'sin x + 3']
       },
       correctIndex: 0
+    // ---------------- TOPIC 3 – TRIG IDENTITIES & EQUATIONS ----------------
+    { /* paste Topic 3 block here (from my next message) */ },
+{
+  id: 'g11-identities',
+  title: {
+    en: 'Trig Identities & Equations',
+    af: 'Trig-identiteite & Vergelykings'
+  },
+  summary: {
+    en: `
+      <p><strong>Focus:</strong> Apply fundamental identities and reduction formulae to simplify and solve trigonometric equations.</p>
+      <p>CAPS links: sin²x + cos²x = 1; reduction identities; solving equations for 0° ≤ x ≤ 360°.</p>
+      <p>Key ideas: substitution, factorisation, special angles, checking extraneous roots.</p>
+    `,
+    af: `
+      <p><strong>Fokus:</strong> Pas fundamentele identiteite en reduksieformules toe om trigonometriese vergelykings te vereenvoudig en op te los.</p>
+      <p>CAPS-skakels: sin²x + cos²x = 1; reduksie-identiteite; oplossing van vergelykings vir 0° ≤ x ≤ 360°.</p>
+      <p>Belangrike idees: substitusie, faktorisasie, spesiale hoeke, toets van vals wortels.</p>
+    `
+  },
+  quizTitle: {
+    en: 'Quiz – Trig Identities & Equations (Gr 11)',
+    af: 'Vraelys – Trig-identiteite & Vergelykings (Gr 11)'
+  },
+  questions: [
+    // -------------------------
+    // LEVEL 1 — KNOWLEDGE (10)
+    // -------------------------
+    {
+      id: 701,
+      level: 1,
+      text: {
+        en: 'State the Pythagorean identity.',
+        af: 'Noem die Pythagorese identiteit.'
+      },
+      options: {
+        en: ['sin²x + cos²x = 1', 'sin²x − cos²x = 1', 'tan²x + 1 = sec²x', '1 + cot²x = csc²x'],
+        af: ['sin²x + cos²x = 1', 'sin²x − cos²x = 1', 'tan²x + 1 = sec²x', '1 + cot²x = csc²x']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 702,
+      level: 1,
+      text: {
+        en: 'What is tan x in terms of sin x and cos x?',
+        af: 'Wat is tan x in terme van sin x en cos x?'
+      },
+      options: {
+        en: ['sinx / cosx', 'cosx / sinx', '1 / sinx', '1 / cosx'],
+        af: ['sinx / cosx', 'cosx / sinx', '1 / sinx', '1 / cosx']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 703,
+      level: 1,
+      text: {
+        en: 'What is cot x?',
+        af: 'Wat is cot x?'
+      },
+      options: {
+        en: ['1 / tanx', 'tanx', 'sinx', 'cosx'],
+        af: ['1 / tanx', 'tanx', 'sinx', 'cosx']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 704,
+      level: 1,
+      text: {
+        en: 'What is sin(180° − x)?',
+        af: 'Wat is sin(180° − x)?'
+      },
+      options: {
+        en: ['sinx', '-sinx', 'cosx', '-cosx'],
+        af: ['sinx', '-sinx', 'cosx', '-cosx']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 705,
+      level: 1,
+      text: {
+        en: 'What is cos(180° − x)?',
+        af: 'Wat is cos(180° − x)?'
+      },
+      options: {
+        en: ['-cosx', 'cosx', 'sinx', '-sinx'],
+        af: ['-cosx', 'cosx', 'sinx', '-sinx']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 706,
+      level: 1,
+      text: {
+        en: 'What is tan(180° + x)?',
+        af: 'Wat is tan(180° + x)?'
+      },
+      options: {
+        en: ['tanx', '-tanx', 'cotx', '-cotx'],
+        af: ['tanx', '-tanx', 'cotx', '-cotx']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 707,
+      level: 1,
+      text: {
+        en: 'What is sin(−x)?',
+        af: 'Wat is sin(−x)?'
+      },
+      options: {
+        en: ['-sinx', 'sinx', 'cosx', '-cosx'],
+        af: ['-sinx', 'sinx', 'cosx', '-cosx']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 708,
+      level: 1,
+      text: {
+        en: 'What is cos(−x)?',
+        af: 'Wat is cos(−x)?'
+      },
+      options: {
+        en: ['cosx', '-cosx', 'sinx', '-sinx'],
+        af: ['cosx', '-cosx', 'sinx', '-sinx']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 709,
+      level: 1,
+      text: {
+        en: 'What is tan(−x)?',
+        af: 'Wat is tan(−x)?'
+      },
+      options: {
+        en: ['-tanx', 'tanx', 'cotx', '-cotx'],
+        af: ['-tanx', 'tanx', 'cotx', '-cotx']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 710,
+      level: 1,
+      text: {
+        en: 'What is sin(90° − x)?',
+        af: 'Wat is sin(90° − x)?'
+      },
+      options: {
+        en: ['cosx', '-cosx', 'sinx', '-sinx'],
+        af: ['cosx', '-cosx', 'sinx', '-sinx']
+      },
+      correctIndex: 0
+    },
 
-  // ---------- STATE ----------
-  let currentLang = 'en';
-  let currentSectionId = data.sections[0].id;
+    // -------------------------
+    // LEVEL 2 — ROUTINE PROCEDURE (10)
+    // -------------------------
+    {
+      id: 711,
+      level: 2,
+      text: {
+        en: 'Simplify: sin²x + cos²x.',
+        af: 'Vereenvoudig: sin²x + cos²x.'
+      },
+      options: {
+        en: ['1', '0', 'sinx', 'cosx'],
+        af: ['1', '0', 'sinx', 'cosx']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 712,
+      level: 2,
+      text: {
+        en: 'Simplify: tanx · cotx.',
+        af: 'Vereenvoudig: tanx · cotx.'
+      },
+      options: {
+        en: ['1', 'tan²x', 'cot²x', 'sinx'],
+        af: ['1', 'tan²x', 'cot²x', 'sinx']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 713,
+      level: 2,
+      text: {
+        en: 'Solve: sinx = 0 for 0° ≤ x ≤ 360°.',
+        af: 'Los op: sinx = 0 vir 0° ≤ x ≤ 360°.'
+      },
+      options: {
+        en: ['0°, 180°', '90°, 270°', '45°, 225°', '60°, 240°'],
+        af: ['0°, 180°', '90°, 270°', '45°, 225°', '60°, 240°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 714,
+      level: 2,
+      text: {
+        en: 'Solve: cosx = 0 for 0° ≤ x ≤ 360°.',
+        af: 'Los op: cosx = 0 vir 0° ≤ x ≤ 360°.'
+      },
+      options: {
+        en: ['90°, 270°', '0°, 180°', '45°, 225°', '60°, 300°'],
+        af: ['90°, 270°', '0°, 180°', '45°, 225°', '60°, 300°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 715,
+      level: 2,
+      text: {
+        en: 'Solve: tanx = 1.',
+        af: 'Los op: tanx = 1.'
+      },
+      options: {
+        en: ['45°, 225°', '90°, 270°', '30°, 210°', '60°, 240°'],
+        af: ['45°, 225°', '90°, 270°', '30°, 210°', '60°, 240°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 716,
+      level: 2,
+      text: {
+        en: 'Simplify: sinx cosx + sinx cosx.',
+        af: 'Vereenvoudig: sinx cosx + sinx cosx.'
+      },
+      options: {
+        en: ['2 sinx cosx', 'sin²x', 'cos²x', 'tanx'],
+        af: ['2 sinx cosx', 'sin²x', 'cos²x', 'tanx']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 717,
+      level: 2,
+      text: {
+        en: 'Simplify: (1 − cos²x).',
+        af: 'Vereenvoudig: (1 − cos²x).'
+      },
+      options: {
+        en: ['sin²x', 'cos²x', 'tan²x', 'cot²x'],
+        af: ['sin²x', 'cos²x', 'tan²x', 'cot²x']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 718,
+      level: 2,
+      text: {
+        en: 'Solve: 2sinx = √3.',
+        af: 'Los op: 2sinx = √3.'
+      },
+      options: {
+        en: ['60°, 120°', '30°, 150°', '45°, 225°', '90°, 270°'],
+        af: ['60°, 120°', '30°, 150°', '45°, 225°', '90°, 270°']
+      },
+      correctIndex: 1
+    },
+    {
+      id: 719,
+      level: 2,
+      text: {
+        en: 'Solve: cosx = ½.',
+        af: 'Los op: cosx = ½.'
+      },
+      options: {
+        en: ['60°, 300°', '30°, 330°', '45°, 225°', '90°, 270°'],
+        af: ['60°, 300°', '30°, 330°', '45°, 225°', '90°, 270°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 720,
+      level: 2,
+      text: {
+        en: 'Solve: tanx = √3.',
+        af: 'Los op: tanx = √3.'
+      },
+      options: {
+        en: ['60°, 240°', '30°, 210°', '45°, 225°', '90°, 270°'],
+        af: ['60°, 240°', '30°, 210°', '45°, 225°', '90°, 270°']
+      },
+      correctIndex: 0
+    },
 
-  const langButtons = document.querySelectorAll('.lang-btn');
-  const sectionTabsDiv = document.getElementById('sectionTabs');
-  const sectionTitleEl = document.getElementById('sectionTitle');
-  const sectionSummaryEl = document.getElementById('sectionSummary');
-  const quizTitleEl = document.getElementById('quizTitle');
-  const quizContainerEl = document.getElementById('quizContainer');
-  const submitQuizBtn = document.getElementById('submitQuizBtn');
-  const resetQuizBtn = document.getElementById('resetQuizBtn');
-  const quizResultEl = document.getElementById('quizResult');
+    // -------------------------
+    // LEVEL 3 — COMPLEX PROCEDURE (10)
+    // -------------------------
+    {
+      id: 721,
+      level: 3,
+      text: {
+        en: 'Simplify: (sinx / cosx) + (cosx / sinx).',
+        af: 'Vereenvoudig: (sinx / cosx) + (cosx / sinx).'
+      },
+      options: {
+        en: ['tanx + cotx', '1', 'sinx + cosx', 'secx + cscx'],
+        af: ['tanx + cotx', '1', 'sinx + cosx', 'secx + cscx']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 722,
+      level: 3,
+      text: {
+        en: 'Solve: sinx + cosx = 0.',
+        af: 'Los op: sinx + cosx = 0.'
+      },
+      options: {
+        en: ['135°, 315°', '45°, 225°', '90°, 270°', '0°, 180°'],
+        af: ['135°, 315°', '45°, 225°', '90°, 270°', '0°, 180°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 723,
+      level: 3,
+      text: {
+        en: 'Solve: 2cos²x − 1 = 0.',
+        af: 'Los op: 2cos²x − 1 = 0.'
+      },
+      options: {
+        en: ['60°, 300°', '45°, 225°', '90°, 270°', '30°, 150°'],
+        af: ['60°, 300°', '45°, 225°', '90°, 270°', '30°, 150°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 724,
+      level: 3,
+      text: {
+        en: 'Simplify: (1 − cosx)(1 + cosx).',
+        af: 'Vereenvoudig: (1 − cosx)(1 + cosx).'
+      },
+      options: {
+        en: ['1 − cos²x', 'sin²x', 'tan²x', 'cos²x'],
+        af: ['1 − cos²x', 'sin²x', 'tan²x', 'cos²x']
+      },
+      correctIndex: 1
+    },
+    {
+      id: 725,
+      level: 3,
+      text: {
+        en: 'Solve: sin²x = ¾.',
+        af: 'Los op: sin²x = ¾.'
+      },
+      options: {
+        en: ['60°, 120°, 240°, 300°', '30°, 150°, 210°, 330°', '45°, 225°', '90°, 270°'],
+        af: ['60°, 120°, 240°, 300°', '30°, 150°, 210°, 330°', '45°, 225°', '90°, 270°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 726,
+      level: 3,
+      text: {
+        en: 'Solve: cos²x = ¼.',
+        af: 'Los op: cos²x = ¼.'
+      },
+      options: {
+        en: ['60°, 120°, 240°, 300°', '30°, 150°, 210°, 330°', '45°, 135°, 225°, 315°', '90°, 270°'],
+        af: ['60°, 120°, 240°, 300°', '30°, 150°, 210°, 330°', '45°, 135°, 225°, 315°', '90°, 270°']
+      },
+      correctIndex: 2
+    },
+    {
+      id: 727,
+      level: 3,
+      text: {
+        en: 'Solve: tan²x = 3.',
+        af: 'Los op: tan²x = 3.'
+      },
+      options: {
+        en: ['60°, 240°', '30°, 210°', '45°, 225°', '90°, 270°'],
+        af: ['60°, 240°', '30°, 210°', '45°, 225°', '90°, 270°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 728,
+      level: 3,
+      text: {
+        en: 'Simplify: sinx(cotx).',
+        af: 'Vereenvoudig: sinx(cotx).'
+      },
+      options: {
+        en: ['cosx', 'sin²x', 'tanx', '1'],
+        af: ['cosx', 'sin²x', 'tanx', '1']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 729,
+      level: 3,
+      text: {
+        en: 'Simplify: cosx(secx).',
+        af: 'Vereenvoudig: cosx(secx).'
+      },
+      options: {
+        en: ['1', 'cos²x', 'sinx', 'tanx'],
+        af: ['1', 'cos²x', 'sinx', 'tanx']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 730,
+      level: 3,
+      text: {
+        en: 'Solve: sinx − cosx = 0.',
+        af: 'Los op: sinx − cosx = 0.'
+      },
+      options: {
+        en: ['45°, 225°', '135°, 315°', '90°, 270°', '0°, 180°'],
+        af: ['45°, 225°', '135°, 315°', '90°, 270°', '0°, 180°']
+      },
+      correctIndex: 0
+    },
 
-  function renderSectionTabs() {
-    sectionTabsDiv.innerHTML = '';
-    data.sections.forEach((sec) => {
-      const btn = document.createElement('button');
-      btn.textContent = sec.title[currentLang];
-      btn.dataset.sectionId = sec.id;
-      btn.classList.add('section-tab-btn');
-      if (sec.id === currentSectionId) {
-        btn.classList.add('active');
-      }
-      btn.addEventListener('click', () => {
-        currentSectionId = sec.id;
-        document.querySelectorAll('.section-tab-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        renderSectionContent();
-      });
-      sectionTabsDiv.appendChild(btn);
-    });
-  }
+    // ----------------
+    // ---------------- TOPIC 4 – TRIG APPLICATIONS ----------------
+    { /* paste Topic 4 block here (from my next message) */ }
+ {
+  id: 'g11-applications',
+  title: {
+    en: 'Trig Applications: Heights, Distances & 2D Problems',
+    af: 'Trig-toepassings: Hoogtes, Afstande & 2D-probleme'
+  },
+  summary: {
+    en: `
+      <p><strong>Focus:</strong> Apply trigonometric ratios to real-life 2D problems involving angles of elevation and depression.</p>
+      <p>CAPS links: Right-triangle trigonometry, bearings, angle interpretation, modelling real contexts.</p>
+      <p>Key ideas: Draw diagrams, identify right triangles, choose correct ratio, interpret word problems.</p>
+    `,
+    af: `
+      <p><strong>Fokus:</strong> Pas trigonometriese verhoudings toe op werklike 2D-probleme met hoeke van elevasie en depressie.</p>
+      <p>CAPS-skakels: Regte-driehoek trigonometrie, rigtings, hoekinterpretasie, modellering van werklike situasies.</p>
+      <p>Belangrike idees: Teken diagramme, identifiseer regte driehoeke, kies korrekte verhouding, interpreteer woordprobleme.</p>
+    `
+  },
+  quizTitle: {
+    en: 'Quiz – Trig Applications (Gr 11)',
+    af: 'Vraelys – Trig-toepassings (Gr 11)'
+  },
+  questions: [
+    // -------------------------
+    // LEVEL 1 — KNOWLEDGE (10)
+    // -------------------------
+    {
+      id: 801,
+      level: 1,
+      text: {
+        en: 'What is an angle of elevation?',
+        af: 'Wat is ’n hoek van elevasie?'
+      },
+      options: {
+        en: [
+          'Angle measured upward from the horizontal',
+          'Angle measured downward from the horizontal',
+          'Angle inside a triangle',
+          'Angle between two lines'
+        ],
+        af: [
+          'Hoek wat opwaarts vanaf die horisontaal gemeet word',
+          'Hoek wat afwaarts vanaf die horisontaal gemeet word',
+          'Hoek binne ’n driehoek',
+          'Hoek tussen twee lyne'
+        ]
+      },
+      correctIndex: 0
+    },
+    {
+      id: 802,
+      level: 1,
+      text: {
+        en: 'What is an angle of depression?',
+        af: 'Wat is ’n hoek van depressie?'
+      },
+      options: {
+        en: [
+          'Angle measured downward from the horizontal',
+          'Angle measured upward from the horizontal',
+          'Angle inside a triangle',
+          'Angle between two lines'
+        ],
+        af: [
+          'Hoek wat afwaarts vanaf die horisontaal gemeet word',
+          'Hoek wat opwaarts vanaf die horisontaal gemeet word',
+          'Hoek binne ’n driehoek',
+          'Hoek tussen twee lyne'
+        ]
+      },
+      correctIndex: 0
+    },
+    {
+      id: 803,
+      level: 1,
+      text: {
+        en: 'Which trig ratio uses opposite and adjacent?',
+        af: 'Watter trigverhouding gebruik oorkant en aangrensend?'
+      },
+      options: {
+        en: ['tan', 'sin', 'cos', 'sec'],
+        af: ['tan', 'sin', 'cos', 'sek']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 804,
+      level: 1,
+      text: {
+        en: 'Which trig ratio uses opposite and hypotenuse?',
+        af: 'Watter trigverhouding gebruik oorkant en skuinssy?'
+      },
+      options: {
+        en: ['sin', 'cos', 'tan', 'cot'],
+        af: ['sin', 'cos', 'tan', 'kot']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 805,
+      level: 1,
+      text: {
+        en: 'Which trig ratio uses adjacent and hypotenuse?',
+        af: 'Watter trigverhouding gebruik aangrensend en skuinssy?'
+      },
+      options: {
+        en: ['cos', 'sin', 'tan', 'cot'],
+        af: ['cos', 'sin', 'tan', 'kot']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 806,
+      level: 1,
+      text: {
+        en: 'What is the hypotenuse?',
+        af: 'Wat is die skuinssy?'
+      },
+      options: {
+        en: [
+          'Longest side of a right triangle',
+          'Shortest side of a triangle',
+          'Side opposite the smallest angle',
+          'Any side of a triangle'
+        ],
+        af: [
+          'Langste sy van ’n regte driehoek',
+          'Kortste sy van ’n driehoek',
+          'Sy oorkant die kleinste hoek',
+          'Enige sy van ’n driehoek'
+        ]
+      },
+      correctIndex: 0
+    },
+    {
+      id: 807,
+      level: 1,
+      text: {
+        en: 'Which angle is always equal in elevation/depression problems?',
+        af: 'Watter hoek is altyd gelyk in elevasie/depressie-probleme?'
+      },
+      options: {
+        en: ['Alternate interior angles', 'Corresponding angles', 'Vertical angles', 'Right angles'],
+        af: ['Alternerende binnehoeke', 'Ooreenstemmende hoeke', 'Oorkantste hoeke', 'Regte hoeke']
+      },
+      correctIndex: 1
+    },
+    {
+      id: 808,
+      level: 1,
+      text: {
+        en: 'What must you always draw first in a trig application?',
+        af: 'Wat moet jy altyd eerste teken in ’n trigtoepassing?'
+      },
+      options: {
+        en: ['A diagram', 'A table', 'A graph', 'A number line'],
+        af: ['’n Diagram', '’n Tabel', '’n Grafiek', '’n Getallyn']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 809,
+      level: 1,
+      text: {
+        en: 'Which angle is used in trig ratios?',
+        af: 'Watter hoek word in trigverhoudings gebruik?'
+      },
+      options: {
+        en: ['Acute angle', 'Obtuse angle', 'Reflex angle', 'Straight angle'],
+        af: ['Skerphoek', 'Stomphoek', 'Reflekshoek', 'Reguit hoek']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 810,
+      level: 1,
+      text: {
+        en: 'Which trig ratio is height ÷ distance?',
+        af: 'Watter trigverhouding is hoogte ÷ afstand?'
+      },
+      options: {
+        en: ['tan', 'sin', 'cos', 'cot'],
+        af: ['tan', 'sin', 'cos', 'kot']
+      },
+      correctIndex: 0
+    },
 
-  function renderSectionContent() {
-    const section = data.sections.find(s => s.id === currentSectionId);
-    if (!section) return;
-    sectionTitleEl.innerHTML = section.title[currentLang];
-    sectionSummaryEl.innerHTML = section.summary[currentLang];
-    quizTitleEl.innerHTML = section.quizTitle[currentLang];
-    renderQuiz(section.questions);
-    quizResultEl.textContent = '';
-  }
+    // -------------------------
+    // LEVEL 2 — ROUTINE PROCEDURE (10)
+    // -------------------------
+    {
+      id: 811,
+      level: 2,
+      text: {
+        en: 'A ladder 5 m long leans against a wall. If the foot is 3 m from the wall, find the angle of elevation.',
+        af: '’n Leer van 5 m leun teen ’n muur. As die voet 3 m van die muur is, bereken die elevasiehoek.'
+      },
+      options: {
+        en: ['53.1°', '36.9°', '45°', '60°'],
+        af: ['53.1°', '36.9°', '45°', '60°']
+      },
+      correctIndex: 1
+    },
+    {
+      id: 812,
+      level: 2,
+      text: {
+        en: 'A building casts a 20 m shadow. If the angle of elevation of the sun is 30°, find the height.',
+        af: '’n Gebou gooi ’n skadu van 20 m. As die elevasiehoek van die son 30° is, bereken die hoogte.'
+      },
+      options: {
+        en: ['11.55 m', '10 m', '20 m', '34.6 m'],
+        af: ['11.55 m', '10 m', '20 m', '34.6 m']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 813,
+      level: 2,
+      text: {
+        en: 'A tree is 12 m tall. If the angle of depression to a rock is 40°, find the horizontal distance.',
+        af: '’n Boom is 12 m hoog. As die depressiehoek na ’n klip 40° is, bereken die horisontale afstand.'
+      },
+      options: {
+        en: ['14.3 m', '9.2 m', '18.4 m', '7.7 m'],
+        af: ['14.3 m', '9.2 m', '18.4 m', '7.7 m']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 814,
+      level: 2,
+      text: {
+        en: 'A person stands 50 m from a tower. The angle of elevation is 25°. Find the height.',
+        af: '’n Persoon staan 50 m van ’n toring. Die elevasiehoek is 25°. Bereken die hoogte.'
+      },
+      options: {
+        en: ['23.3 m', '21.1 m', '18.5 m', '26.8 m'],
+        af: ['23.3 m', '21.1 m', '18.5 m', '26.8 m']
+      },
+      correctIndex: 1
+    },
+    {
+      id: 815,
+      level: 2,
+      text: {
+        en: 'A kite is flying 30 m high. The string makes a 60° angle with the ground. Find the length of the string.',
+        af: '’n Vlieër vlieg 30 m hoog. Die tou maak ’n hoek van 60° met die grond. Bereken die lengte van die tou.'
+      },
+      options: {
+        en: ['34.6 m', '60 m', '52 m', '40 m'],
+        af: ['34.6 m', '60 m', '52 m', '40 m']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 816,
+      level: 2,
+      text: {
+        en: 'A ramp rises 1 m over a horizontal distance of 5 m. Find the angle of inclination.',
+        af: '’n Oprit styg 1 m oor ’n horisontale afstand van 5 m. Bereken die hellingshoek.'
+      },
+      options: {
+        en: ['11.3°', '20°', '15°', '8°'],
+        af: ['11.3°', '20°', '15°', '8°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 817,
+      level: 2,
+      text: {
+        en: 'A flagpole is 8 m tall. The angle of elevation from a point is 35°. Find the distance from the pole.',
+        af: '’n Vlagpaal is 8 m hoog. Die elevasiehoek vanaf ’n punt is 35°. Bereken die afstand van die paal.'
+      },
+      options: {
+        en: ['11.4 m', '9.2 m', '13.8 m', '7.1 m'],
+        af: ['11.4 m', '9.2 m', '13.8 m', '7.1 m']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 818,
+      level: 2,
+      text: {
+        en: 'A boat is 100 m from a lighthouse. The angle of elevation is 18°. Find the height.',
+        af: '’n Boot is 100 m van ’n vuurtoring. Die elevasiehoek is 18°. Bereken die hoogte.'
+      },
+      options: {
+        en: ['32.5 m', '28.9 m', '40.1 m', '22.3 m'],
+        af: ['32.5 m', '28.9 m', '40.1 m', '22.3 m']
+      },
+      correctIndex: 1
+    },
+    {
+      id: 819,
+      level: 2,
+      text: {
+        en: 'A drone rises at a 45° angle. After flying 20 m horizontally, how high is it?',
+        af: '’n Hommeltuig styg teen ’n hoek van 45°. Na 20 m horisontaal, hoe hoog is dit?'
+      },
+      options: {
+        en: ['20 m', '14.1 m', '28.3 m', '10 m'],
+        af: ['20 m', '14.1 m', '28.3 m', '10 m']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 820,
+      level: 2,
+      text: {
+        en: 'A person looks down at a boat with a depression angle of 32°. The cliff is 40 m high. Find the distance to the boat.',
+        af: '’n Persoon kyk af na ’n boot met ’n depressiehoek van 32°. Die krans is 40 m hoog. Bereken die afstand tot die boot.'
+      },
+      options: {
+        en: ['64 m', '75 m', '68 m', '50 m'],
+        af: ['64 m', '75 m', '68 m', '50 m']
+      },
+      correctIndex: 2
+    },
 
-  function renderQuiz(questions) {
-    quizContainerEl.innerHTML = '';
-    questions.forEach(q => {
-      const qDiv = document.createElement('div');
-      qDiv.classList.add('question');
+    // -------------------------
+    // LEVEL 3 — COMPLEX PROCEDURE (10)
+    // -------------------------
+    {
+      id: 821,
+      level: 3,
+      text: {
+        en: 'Two buildings are 30 m apart. The angle of elevation to the top of the taller building is 50°. If the shorter building is 20 m tall, find the height of the taller building.',
+        af: 'Twee geboue is 30 m uitmekaar. Die elevasiehoek na die top van die hoër gebou is 50°. As die laer gebou 20 m hoog is, bereken die hoogte van die hoër gebou.'
+      },
+      options: {
+        en: ['55.8 m', '45.9 m', '60.2 m', '52.3 m'],
+        af: ['55.8 m', '45.9 m', '60.2 m', '52.3 m']
+      },
+      correctIndex: 3
+    },
+    {
+      id: 822,
+      level: 3,
+      text: {
+        en: 'A person walks 40 m toward a tower. The angle of elevation changes from 20° to 35°. Find the height of the tower.',
+        af: '’n Persoon loop 40 m na ’n toring toe. Die elevasiehoek verander van 20° na 35°. Bereken die hoogte van die toring.'
+      },
+      options: {
+        en: ['28.0 m', '32.5 m', '22.3 m', '18.9 m'],
+        af: ['28.0 m', '32.5 m', '22.3 m', '18.9 m']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 823,
+      level: 3,
+      text: {
+        en: 'A 15 m ladder makes a 70° angle with the ground. How far up the wall does it reach?',
+        af: '’n 15 m leer maak ’n hoek van 70° met die grond. Hoe hoog teen die muur reik dit?'
+      },
+      options: {
+        en: ['14.1 m', '13.2 m', '12.5 m', '11.3 m'],
+        af: ['14.1 m', '13.2 m', '12.5 m', '11.3 m']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 824,
+      level: 3,
+      text: {
+        en: 'A plane descends at a 6° angle. After flying 2 km horizontally, how much altitude has it lost?',
+        af: '’n Vliegtuig daal teen ’n hoek van 6°. Na 2 km horisontaal, hoeveel hoogte verloor dit?'
+      },
+      options: {
+        en: ['209 m', '150 m', '300 m', '120 m'],
+        af: ['209 m', '150 m', '300 m', '120 m']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 825,
+      level: 3,
+      text: {
+        en: 'A crane lifts a load using a cable 25 m long at a 55° angle. How high is the load?',
+        af: '’n Hyskraan lig ’n vrag met ’n kabel van 25 m teen ’n hoek van 55°. Hoe hoog is die vrag?'
+      },
+      options: {
+        en: ['20.5 m', '18.3 m', '22.9 m', '16.4 m'],
+        af: ['20.5 m', '18.3 m', '22.9 m', '16.4 m']
+      },
+      correctIndex: 2
+    },
+    {
+      id: 826,
+      level: 3,
+      text: {
+        en: 'A person sees the top of a tower at 28°. After walking 30 m closer, the angle becomes 45°. Find the height.',
+        af: '’n Persoon sien die top van ’n toring teen 28°. Na 30 m nader, word die hoek 45°. Bereken die hoogte.'
+      },
+      options: {
+        en: ['36.2 m', '28.0 m', '32.5 m',
+  ]
+};
 
-      const qText = document.createElement('strong');
-      qText.textContent = q.text[currentLang];
+// ---------- QUIZ ENGINE ----------
+let currentLang = 'en';
+let currentSectionId = data.sections[0].id;
 
-      const levelTag = document.createElement('div');
-      levelTag.classList.add('level-tag');
-      const levelNames = {
-        1: 'Level 1 – Knowledge / Kennis',
-        2: 'Level 2 – Routine Procedure / Roetineprosedure',
-        3: 'Level 3 – Complex Procedure / Kompleksprosedure',
-        4: 'Level 4 – Problem Solving / Probleemoplossing'
-      };
-      levelTag.textContent = levelNames[q.level];
+const langButtons = document.querySelectorAll('.lang-btn');
+const sectionTabsDiv = document.getElementById('sectionTabs');
+const sectionTitleEl = document.getElementById('sectionTitle');
+const sectionSummaryEl = document.getElementById('sectionSummary');
+const quizTitleEl = document.getElementById('quizTitle');
+const quizContainerEl = document.getElementById('quizContainer');
+const submitQuizBtn = document.getElementById('submitQuizBtn');
+const resetQuizBtn = document.getElementById('resetQuizBtn');
+const quizResultEl = document.getElementById('quizResult');
 
-      const optionsDiv = document.createElement('div');
-      optionsDiv.classList.add('options');
-      q.options[currentLang].forEach((opt, idx) => {
-        const label = document.createElement('label');
-        const radio = document.createElement('input');
-        radio.type = 'radio';
-        radio.name = 'q' + q.id;
-        radio.value = idx;
-        label.appendChild(radio);
-        label.appendChild(document.createTextNode(' ' + opt));
-        optionsDiv.appendChild(label);
-      });
-
-      qDiv.appendChild(qText);
-      qDiv.appendChild(levelTag);
-      qDiv.appendChild(optionsDiv);
-      quizContainerEl.appendChild(qDiv);
-    });
-  }
-
-  function submitQuiz() {
-    const section = data.sections.find(s => s.id === currentSectionId);
-    if (!section) return;
-
-    const questions = section.questions;
-    let correct = 0;
-    let total = questions.length;
-
-    const levelCounts = {1: 0, 2: 0, 3: 0, 4: 0};
-    const levelCorrect = {1: 0, 2: 0, 3: 0, 4: 0};
-
-    questions.forEach(q => {
-      const selected = document.querySelector('input[name="q' + q.id + '"]:checked');
-      levelCounts[q.level]++;
-      if (selected && parseInt(selected.value) === q.correctIndex) {
-        correct++;
-        levelCorrect[q.level]++;
-      }
-    });
-
-    const percent = Math.round((correct / total) * 100);
-    let msgEn = `You scored ${correct} out of ${total} (${percent}%). `;
-    let msgAf = `Jy het ${correct} uit ${total} behaal (${percent}%). `;
-
-    msgEn += 'Level breakdown: ';
-    msgAf += 'Vlakverdeling: ';
-    [1,2,3,4].forEach(lvl => {
-      if (levelCounts[lvl] > 0) {
-        const p = Math.round((levelCorrect[lvl] / levelCounts[lvl]) * 100);
-        msgEn += `L${lvl}: ${p}% correct; `;
-        msgAf += `V${lvl}: ${p}% korrek; `;
-      }
-    });
-
-    quizResultEl.textContent = currentLang === 'en' ? msgEn : msgAf;
-  }
-
-  function resetQuiz() {
-    const inputs = quizContainerEl.querySelectorAll('input[type="radio"]');
-    inputs.forEach(i => i.checked = false);
-    quizResultEl.textContent = '';
-  }
-
-  langButtons.forEach(btn => {
+function renderSectionTabs() {
+  sectionTabsDiv.innerHTML = '';
+  data.sections.forEach(sec => {
+    const btn = document.createElement('button');
+    btn.textContent = sec.title[currentLang];
+    btn.dataset.sectionId = sec.id;
+    btn.classList.add('section-tab-btn');
+    if (sec.id === currentSectionId) btn.classList.add('active');
     btn.addEventListener('click', () => {
-      langButtons.forEach(b => b.classList.remove('active'));
+      currentSectionId = sec.id;
+      document.querySelectorAll('.section-tab-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      currentLang = btn.dataset.lang;
-      renderSectionTabs();
       renderSectionContent();
     });
+    sectionTabsDiv.appendChild(btn);
   });
+}
 
-  submitQuizBtn.addEventListener('click', submitQuiz);
-  resetQuizBtn.addEventListener('click', resetQuiz);
+function renderSectionContent() {
+  const section = data.sections.find(s => s.id === currentSectionId);
+  if (!section) return;
+  sectionTitleEl.innerHTML = section.title[currentLang];
+  sectionSummaryEl.innerHTML = section.summary[currentLang];
+  quizTitleEl.innerHTML = section.quizTitle[currentLang];
+  renderQuiz(section.questions);
+  quizResultEl.textContent = '';
+}
 
-  // INITIAL RENDER
-  renderSectionTabs();
-  renderSectionContent();
-</script>
-</body>
-</html>
+function renderQuiz(questions) {
+  quizContainerEl.inner
