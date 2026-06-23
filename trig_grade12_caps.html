@@ -1,0 +1,2259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trigonometry Grade 12 – Interactive Learning Platform</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f5fb;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #5e35b1; /* Purple */
+      color: white;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 5px solid #fbc02d; /* Gold */
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .lang-switch button {
+      padding: 8px 14px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      background-color: #e0e0e0;
+      margin-left: 5px;
+    }
+
+    .lang-switch button.active {
+      background-color: #5e35b1;
+      color: white;
+    }
+
+    select#topicSelect {
+      padding: 10px;
+      font-size: 15px;
+      border-radius: 6px;
+      border: 2px solid #5e35b1;
+      background-color: white;
+      color: #333;
+    }
+
+    .panel {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      margin-top: 20px;
+    }
+
+    h2 {
+      color: #5e35b1;
+      margin-top: 0;
+    }
+
+    h3 {
+      color: #fbc02d;
+      margin-top: 0;
+    }
+
+    .question {
+      background-color: #f3e5f5;
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    .options label {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .btn-row button {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background-color: #5e35b1;
+      color: white;
+      margin-right: 10px;
+    }
+
+    .result {
+      margin-top: 15px;
+      font-weight: bold;
+      color: #5e35b1;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Trigonometry Grade 12 – Interactive Learning Platform</h1>
+  <p>Advanced CAPS‑aligned bilingual summaries and quizzes</p>
+</header>
+
+<div class="container">
+
+  <div class="top-bar">
+    <div>
+      <strong>Grade 12 Topics / Onderwerpe:</strong>
+    </div>
+
+    <div class="lang-switch">
+      <strong>Language / Taal:</strong>
+      <button class="lang-btn active" data-lang="en">English</button>
+      <button class="lang-btn" data-lang="af">Afrikaans</button>
+    </div>
+  </div>
+
+  <select id="topicSelect"></select>
+
+  <div class="panel">
+    <h2 id="sectionTitle"></h2>
+    <div id="sectionSummary"></div>
+
+    <h3 id="quizTitle"></h3>
+    <div id="quizContainer"></div>
+
+    <div class="btn-row">
+      <button id="submitQuizBtn">Submit / Dien in</button>
+      <button id="resetQuizBtn">Reset / Herstel</button>
+    </div>
+
+    <div class="result" id="quizResult"></div>
+  </div>
+
+</div>
+
+<script>
+/* -----------------------------
+   DATA MODEL — GRADE 12 TOPICS
+   ----------------------------- */
+
+const data = {
+  sections: [
+
+    /* -------------------------------
+       PASTE PART 2 (Topic 1) HERE
+       Example:
+       {
+         id: 'g12-identities',
+         title: { ... },
+         summary: { ... },
+         quizTitle: { ... },
+         questions: [ ... ]
+       },
+    -------------------------------- */
+{
+  id: 'g12-identities',
+  title: {
+    en: 'Advanced Identities & Compound Angles',
+    af: 'Gevorderde identiteite & saamgestelde hoeke'
+  },
+  summary: {
+    en: `
+      <p><strong>Focus:</strong> Use compound-angle, double-angle and reduction identities to simplify expressions and solve trig problems.</p>
+      <p>CAPS links: sin(A ± B), cos(A ± B), tan(A ± B), double-angle identities, reduction to first quadrant.</p>
+      <p>Key ideas: pattern recognition, substitution, factorisation, and exact values for special angles.</p>
+    `,
+    af: `
+      <p><strong>Fokus:</strong> Gebruik saamgestelde-hoek-, dubbelhoek- en reduksie-identiteite om uitdrukkings te vereenvoudig en trigprobleme op te los.</p>
+      <p>CAPS-skakels: sin(A ± B), cos(A ± B), tan(A ± B), dubbelhoek-identiteite, reduksie na die eerste kwadrant.</p>
+      <p>Belangrike idees: patroonherkenning, substitusie, faktorisasie en presiese waardes vir spesiale hoeke.</p>
+    `
+  },
+  quizTitle: {
+    en: 'Quiz – Advanced Identities & Compound Angles (Gr 12)',
+    af: 'Vraelys – Gevorderde identiteite & saamgestelde hoeke (Gr 12)'
+  },
+  questions: [
+    // -------------------------
+    // LEVEL 1 — KNOWLEDGE (10)
+    // -------------------------
+    {
+      id: 1201,
+      level: 1,
+      text: {
+        en: 'State the identity for sin(A + B).',
+        af: 'Gee die identiteit vir sin(A + B).'
+      },
+      options: {
+        en: [
+          'sinA cosB + cosA sinB',
+          'sinA cosB − cosA sinB',
+          'cosA cosB − sinA sinB',
+          'cosA cosB + sinA sinB'
+        ],
+        af: [
+          'sinA cosB + cosA sinB',
+          'sinA cosB − cosA sinB',
+          'cosA cosB − sinA sinB',
+          'cosA cosB + sinA sinB'
+        ]
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1202,
+      level: 1,
+      text: {
+        en: 'State the identity for sin(A − B).',
+        af: 'Gee die identiteit vir sin(A − B).'
+      },
+      options: {
+        en: [
+          'sinA cosB − cosA sinB',
+          'sinA cosB + cosA sinB',
+          'cosA cosB − sinA sinB',
+          'cosA cosB + sinA sinB'
+        ],
+        af: [
+          'sinA cosB − cosA sinB',
+          'sinA cosB + cosA sinB',
+          'cosA cosB − sinA sinB',
+          'cosA cosB + sinA sinB'
+        ]
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1203,
+      level: 1,
+      text: {
+        en: 'State the identity for cos(A + B).',
+        af: 'Gee die identiteit vir cos(A + B).'
+      },
+      options: {
+        en: [
+          'cosA cosB − sinA sinB',
+          'cosA cosB + sinA sinB',
+          'sinA cosB + cosA sinB',
+          'sinA cosB − cosA sinB'
+        ],
+        af: [
+          'cosA cosB − sinA sinB',
+          'cosA cosB + sinA sinB',
+          'sinA cosB + cosA sinB',
+          'sinA cosB − cosA sinB'
+        ]
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1204,
+      level: 1,
+      text: {
+        en: 'State the identity for cos(A − B).',
+        af: 'Gee die identiteit vir cos(A − B).'
+      },
+      options: {
+        en: [
+          'cosA cosB + sinA sinB',
+          'cosA cosB − sinA sinB',
+          'sinA cosB + cosA sinB',
+          'sinA cosB − cosA sinB'
+        ],
+        af: [
+          'cosA cosB + sinA sinB',
+          'cosA cosB − sinA sinB',
+          'sinA cosB + cosA sinB',
+          'sinA cosB − cosA sinB'
+        ]
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1205,
+      level: 1,
+      text: {
+        en: 'State the identity for tan(A + B).',
+        af: 'Gee die identiteit vir tan(A + B).'
+      },
+      options: {
+        en: [
+          '(tanA + tanB) / (1 − tanA tanB)',
+          '(tanA − tanB) / (1 + tanA tanB)',
+          '(tanA + tanB) / (1 + tanA tanB)',
+          '(tanA − tanB) / (1 − tanA tanB)'
+        ],
+        af: [
+          '(tanA + tanB) / (1 − tanA tanB)',
+          '(tanA − tanB) / (1 + tanA tanB)',
+          '(tanA + tanB) / (1 + tanA tanB)',
+          '(tanA − tanB) / (1 − tanA tanB)'
+        ]
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1206,
+      level: 1,
+      text: {
+        en: 'State the identity for tan(A − B).',
+        af: 'Gee die identiteit vir tan(A − B).'
+      },
+      options: {
+        en: [
+          '(tanA − tanB) / (1 + tanA tanB)',
+          '(tanA + tanB) / (1 − tanA tanB)',
+          '(tanA − tanB) / (1 − tanA tanB)',
+          '(tanA + tanB) / (1 + tanA tanB)'
+        ],
+        af: [
+          '(tanA − tanB) / (1 + tanA tanB)',
+          '(tanA + tanB) / (1 − tanA tanB)',
+          '(tanA − tanB) / (1 − tanA tanB)',
+          '(tanA + tanB) / (1 + tanA tanB)'
+        ]
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1207,
+      level: 1,
+      text: {
+        en: 'State the double-angle identity for sin(2A).',
+        af: 'Gee die dubbelhoek-identiteit vir sin(2A).'
+      },
+      options: {
+        en: ['2 sinA cosA', 'sin²A − cos²A', '2 cos²A − 1', '1 − 2 sin²A'],
+        af: ['2 sinA cosA', 'sin²A − cos²A', '2 cos²A − 1', '1 − 2 sin²A']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1208,
+      level: 1,
+      text: {
+        en: 'State the double-angle identity for cos(2A).',
+        af: 'Gee die dubbelhoek-identiteit vir cos(2A).'
+      },
+      options: {
+        en: [
+          'cos²A − sin²A',
+          '2 cos²A − 1',
+          '1 − 2 sin²A',
+          'All of the above'
+        ],
+        af: [
+          'cos²A − sin²A',
+          '2 cos²A − 1',
+          '1 − 2 sin²A',
+          'Al die bogenoemde'
+        ]
+      },
+      correctIndex: 3
+    },
+    {
+      id: 1209,
+      level: 1,
+      text: {
+        en: 'State the identity for sin(−x).',
+        af: 'Gee die identiteit vir sin(−x).'
+      },
+      options: {
+        en: ['−sinx', 'sinx', 'cosx', '−cosx'],
+        af: ['−sinx', 'sinx', 'cosx', '−cosx']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1210,
+      level: 1,
+      text: {
+        en: 'State the identity for cos(−x).',
+        af: 'Gee die identiteit vir cos(−x).'
+      },
+      options: {
+        en: ['cosx', '−cosx', 'sinx', '−sinx'],
+        af: ['cosx', '−cosx', 'sinx', '−sinx']
+      },
+      correctIndex: 0
+    },
+
+    // -------------------------
+    // LEVEL 2 — ROUTINE PROCEDURE (10)
+    // -------------------------
+    {
+      id: 1211,
+      level: 2,
+      text: {
+        en: 'Simplify: sin(30° + 60°).',
+        af: 'Vereenvoudig: sin(30° + 60°).'
+      },
+      options: {
+        en: ['1', '√3/2', '1/2', '√2/2'],
+        af: ['1', '√3/2', '1/2', '√2/2']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1212,
+      level: 2,
+      text: {
+        en: 'Simplify: cos(30° + 60°).',
+        af: 'Vereenvoudig: cos(30° + 60°).'
+      },
+      options: {
+        en: ['0', '√3/2', '1/2', '−1/2'],
+        af: ['0', '√3/2', '1/2', '−1/2']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1213,
+      level: 2,
+      text: {
+        en: 'Simplify: sin(75°) using sin(A + B).',
+        af: 'Vereenvoudig: sin(75°) met sin(A + B).'
+      },
+      options: {
+        en: ['(√6 + √2)/4', '(√6 − √2)/4', '√3/2', '√2/2'],
+        af: ['(√6 + √2)/4', '(√6 − √2)/4', '√3/2', '√2/2']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1214,
+      level: 2,
+      text: {
+        en: 'Simplify: cos(15°) using cos(A − B).',
+        af: 'Vereenvoudig: cos(15°) met cos(A − B).'
+      },
+      options: {
+        en: ['(√6 + √2)/4', '(√6 − √2)/4', '√3/2', '√2/2'],
+        af: ['(√6 + √2)/4', '(√6 − √2)/4', '√3/2', '√2/2']
+      },
+      correctIndex: 1
+    },
+    {
+      id: 1215,
+      level: 2,
+      text: {
+        en: 'Simplify: tan(45° + 30°).',
+        af: 'Vereenvoudig: tan(45° + 30°).'
+      },
+      options: {
+        en: ['√3', '1', '√3/3', '−√3'],
+        af: ['√3', '1', '√3/3', '−√3']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1216,
+      level: 2,
+      text: {
+        en: 'Simplify: sin(2 × 30°).',
+        af: 'Vereenvoudig: sin(2 × 30°).'
+      },
+      options: {
+        en: ['√3/2', '1', '1/2', '0'],
+        af: ['√3/2', '1', '1/2', '0']
+      },
+      correctIndex: 2
+    },
+    {
+      id: 1217,
+      level: 2,
+      text: {
+        en: 'Simplify: cos(2 × 60°).',
+        af: 'Vereenvoudig: cos(2 × 60°).'
+      },
+      options: {
+        en: ['−1', '0', '1/2', '−1/2'],
+        af: ['−1', '0', '1/2', '−1/2']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1218,
+      level: 2,
+      text: {
+        en: 'Simplify: sin(120°) using reduction identities.',
+        af: 'Vereenvoudig: sin(120°) met reduksie-identiteite.'
+      },
+      options: {
+        en: ['√3/2', '1/2', '−√3/2', '−1/2'],
+        af: ['√3/2', '1/2', '−√3/2', '−1/2']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1219,
+      level: 2,
+      text: {
+        en: 'Simplify: cos(210°) using reduction identities.',
+        af: 'Vereenvoudig: cos(210°) met reduksie-identiteite.'
+      },
+      options: {
+        en: ['−√3/2', '−1/2', '√3/2', '1/2'],
+        af: ['−√3/2', '−1/2', '√3/2', '1/2']
+      },
+      correctIndex: 1
+    },
+    {
+      id: 1220,
+      level: 2,
+      text: {
+        en: 'Simplify: tan(225°) using reduction identities.',
+        af: 'Vereenvoudig: tan(225°) met reduksie-identiteite.'
+      },
+      options: {
+        en: ['1', '−1', '√3', '−√3'],
+        af: ['1', '−1', '√3', '−√3']
+      },
+      correctIndex: 0
+    },
+
+    // -------------------------
+    // LEVEL 3 — COMPLEX PROCEDURE (10)
+    // -------------------------
+    {
+      id: 1221,
+      level: 3,
+      text: {
+        en: 'Simplify: sinx cosx + sinx cosx.',
+        af: 'Vereenvoudig: sinx cosx + sinx cosx.'
+      },
+      options: {
+        en: ['2 sinx cosx', 'sin²x + cos²x', 'tanx', '1'],
+        af: ['2 sinx cosx', 'sin²x + cos²x', 'tanx', '1']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1222,
+      level: 3,
+      text: {
+        en: 'Simplify: sin(2x) + 2 sinx cosx.',
+        af: 'Vereenvoudig: sin(2x) + 2 sinx cosx.'
+      },
+      options: {
+        en: ['4 sinx cosx', '0', '2 sinx cosx', 'sin²x'],
+        af: ['4 sinx cosx', '0', '2 sinx cosx', 'sin²x']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1223,
+      level: 3,
+      text: {
+        en: 'Simplify: cos²x − sin²x using double-angle identities.',
+        af: 'Vereenvoudig: cos²x − sin²x met dubbelhoek-identiteite.'
+      },
+      options: {
+        en: ['cos(2x)', 'sin(2x)', '1', '0'],
+        af: ['cos(2x)', 'sin(2x)', '1', '0']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1224,
+      level: 3,
+      text: {
+        en: 'Simplify: 1 − 2 sin²x.',
+        af: 'Vereenvoudig: 1 − 2 sin²x.'
+      },
+      options: {
+        en: ['cos(2x)', 'sin(2x)', 'tan(2x)', '−cos(2x)'],
+        af: ['cos(2x)', 'sin(2x)', 'tan(2x)', '−cos(2x)']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1225,
+      level: 3,
+      text: {
+        en: 'Simplify: 2 cos²x − 1.',
+        af: 'Vereenvoudig: 2 cos²x − 1.'
+      },
+      options: {
+        en: ['cos(2x)', '−cos(2x)', 'sin(2x)', 'tan(2x)'],
+        af: ['cos(2x)', '−cos(2x)', 'sin(2x)', 'tan(2x)']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1226,
+      level: 3,
+      text: {
+        en: 'Simplify: sin(3x) using sin(A + B) with A = 2x, B = x.',
+        af: 'Vereenvoudig: sin(3x) met sin(A + B) waar A = 2x, B = x.'
+      },
+      options: {
+        en: ['3 sinx − 4 sin³x', '3 sinx + 4 sin³x', '2 sinx cosx', 'sinx'],
+        af: ['3 sinx − 4 sin³x', '3 sinx + 4 sin³x', '2 sinx cosx', 'sinx']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1227,
+      level: 3,
+      text: {
+        en: 'Simplify: cos(3x) using cos(A + B) with A = 2x, B = x.',
+        af: 'Vereenvoudig: cos(3x) met cos(A + B) waar A = 2x, B = x.'
+      },
+      options: {
+        en: ['4 cos³x − 3 cosx', '4 cos³x + 3 cosx', '2 cos²x − 1', '1 − 2 sin²x'],
+        af: ['4 cos³x − 3 cosx', '4 cos³x + 3 cosx', '2 cos²x − 1', '1 − 2 sin²x']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1228,
+      level: 3,
+      text: {
+        en: 'Simplify: tan(2x) in terms of tanx.',
+        af: 'Vereenvoudig: tan(2x) in terme van tanx.'
+      },
+      options: {
+        en: [
+          '(2 tanx) / (1 − tan²x)',
+          '(2 tanx) / (1 + tan²x)',
+          '(tanx + tanx) / (1 − tan²x)',
+          '(tanx − tanx) / (1 + tan²x)'
+        ],
+        af: [
+          '(2 tanx) / (1 − tan²x)',
+          '(2 tanx) / (1 + tan²x)',
+          '(tanx + tanx) / (1 − tan²x)',
+          '(tanx − tanx) / (1 + tan²x)'
+        ]
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1229,
+      level: 3,
+      text: {
+        en: 'Simplify: sinx cos(2x) + cosx sin(2x).',
+        af: 'Vereenvoudig: sinx cos(2x) + cosx sin(2x).'
+      },
+      options: {
+        en: ['sin(3x)', 'sinx', 'cos(3x)', '0'],
+        af: ['sin(3x)', 'sinx', 'cos(3x)', '0']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1230,
+      level: 3,
+      text: {
+        en: 'Simplify: cosx cos(2x) − sinx sin(2x).',
+        af: 'Vereenvoudig: cosx cos(2x) − sinx sin(2x).'
+      },
+      options: {
+        en: ['cos(3x)', 'cosx', 'sin(3x)', '0'],
+        af: ['cos(3x)', 'cosx', 'sin(3x)', '0']
+      },
+      correctIndex: 0
+    },
+
+    // -------------------------
+    // LEVEL 4 — PROBLEM SOLVING (10)
+    // -------------------------
+    {
+      id: 1231,
+      level: 4,
+      text: {
+        en: 'Prove that sin(60° + x) + sin(60° − x) = √3 cosx.',
+        af: 'Bewys dat sin(60° + x) + sin(60° − x) = √3 cosx.'
+      },
+      options: {
+        en: [
+          'Use sin(A ± B) and simplify',
+          'Use cos(A ± B) only',
+          'Use tan(A ± B) only',
+          'It is not true'
+        ],
+        af: [
+          'Gebruik sin(A ± B) en vereenvoudig',
+          'Gebruik slegs cos(A ± B)',
+          'Gebruik slegs tan(A ± B)',
+          'Dit is nie waar nie'
+        ]
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1232,
+      level: 4,
+      text: {
+        en: 'Prove that cos(60° + x) + cos(60° − x) = cosx.',
+        af: 'Bewys dat cos(60° + x) + cos(60° − x) = cosx.'
+      },
+      options: {
+        en: [
+          'Use cos(A ± B) and simplify',
+          'Use sin(A ± B) only',
+          'Use tan(A ± B) only',
+          'It is not true'
+        ],
+        af: [
+          'Gebruik cos(A ± B) en vereenvoudig',
+          'Gebruik slegs sin(A ± B)',
+          'Gebruik slegs tan(A ± B)',
+          'Dit is nie waar nie'
+        ]
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1233,
+      level: 4,
+      text: {
+        en: 'If sin(A + B) = sinA cosB + cosA sinB, show that sin(2A) = 2 sinA cosA.',
+        af: 'As sin(A + B) = sinA cosB + cosA sinB, wys dat sin(2A) = 2 sinA cosA.'
+      },
+      options: {
+        en: [
+          'Let B = A and substitute',
+          'Let B = 2A and substitute',
+          'Let A = 0 and substitute',
+          'It cannot be shown'
+        ],
+        af: [
+          'Laat B = A en vervang',
+          'Laat B = 2A en vervang',
+          'Laat A = 0 en vervang',
+          'Dit kan nie bewys word nie'
+        ]
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1234,
+      level: 4,
+      text: {
+        en: 'If cos(2x) = 1 − 2 sin²x, solve cos(2x) = 0 for 0° ≤ x ≤ 180°.',
+        af: 'As cos(2x) = 1 − 2 sin²x, los cos(2x) = 0 op vir 0° ≤ x ≤ 180°.'
+      },
+      options: {
+        en: ['x = 45°, 135°', 'x = 30°, 150°', 'x = 60°, 120°', 'x = 90°'],
+        af: ['x = 45°, 135°', 'x = 30°, 150°', 'x = 60°, 120°', 'x = 90°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1235,
+      level: 4,
+      text: {
+        en: 'If tan(2x) = (2 tanx) / (1 − tan²x), solve tan(2x) = √3 for 0° ≤ x ≤ 180°.',
+        af: 'As tan(2x) = (2 tanx) / (1 − tan²x), los tan(2x) = √3 op vir 0° ≤ x ≤ 180°.'
+      },
+      options: {
+        en: ['x = 30°, 60°, 120°, 150°', 'x = 15°, 75°, 105°, 165°', 'x = 45°, 135°', 'x = 60°, 120°'],
+        af: ['x = 30°, 60°, 120°, 150°', 'x = 15°, 75°, 105°, 165°', 'x = 45°, 135°', 'x = 60°, 120°']
+      },
+      correctIndex: 1
+    },
+    {
+      id: 1236,
+      level: 4,
+      text: {
+        en: 'Show that sin(3x) + sinx = 4 sinx cos²x.',
+        af: 'Wys dat sin(3x) + sinx = 4 sinx cos²x.'
+      },
+      options: {
+        en: [
+          'Use sin(3x) = 3 sinx − 4 sin³x',
+          'Use cos(3x) = 4 cos³x − 3 cosx',
+          'Use tan(3x) identities',
+          'It is false'
+        ],
+        af: [
+          'Gebruik sin(3x) = 3 sinx − 4 sin³x',
+          'Gebruik cos(3x) = 4 cos³x − 3 cosx',
+          'Gebruik tan(3x)-identiteite',
+          'Dit is vals'
+        ]
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1237,
+      level: 4,
+      text: {
+        en: 'Show that cos(3x) − cosx = −4 sin²x cosx.',
+        af: 'Wys dat cos(3x) − cosx = −4 sin²x cosx.'
+      },
+      options: {
+        en: [
+          'Use cos(3x) = 4 cos³x − 3 cosx',
+          'Use sin(3x) = 3 sinx − 4 sin³x',
+          'Use tan(3x) identities',
+          'It is false'
+        ],
+        af: [
+          'Gebruik cos(3x) = 4 cos³x − 3 cosx',
+          'Gebruik sin(3x) = 3 sinx − 4 sin³x',
+          'Gebruik tan(3x)-identiteite',
+          'Dit is vals'
+        ]
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1238,
+      level: 4,
+      text: {
+        en: 'If sinx + cosx = √2 cos(x − 45°), explain why this is useful.',
+        af: 'As sinx + cosx = √2 cos(x − 45°), verduidelik waarom dit nuttig is.'
+      },
+      options: {
+        en: [
+          'It converts a sum into a single trig function',
+          'It makes the expression more complicated',
+          'It only works for x = 45°',
+          'It is not useful'
+        ],
+        af: [
+          'Dit verander ’n som in ’n enkele trigfunksie',
+          'Dit maak die uitdrukking meer ingewikkeld',
+          'Dit werk net vir x = 45°',
+          'Dit is nie nuttig nie'
+        ]
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1239,
+      level: 4,
+      text: {
+        en: 'Use identities to simplify sinx cos(2x) + cosx sin(2x).',
+        af: 'Gebruik identiteite om sinx cos(2x) + cosx sin(2x) te vereenvoudig.'
+      },
+      options: {
+        en: ['sin(3x)', 'cos(3x)', 'sinx', 'cosx'],
+        af: ['sin(3x)', 'cos(3x)', 'sinx', 'cosx']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1240,
+      level: 4,
+      text: {
+        en: 'Use identities to simplify cosx cos(2x) − sinx sin(2x).',
+        af: 'Gebruik identiteite om cosx cos(2x) − sinx sin(2x) te vereenvoudig.'
+      },
+      options: {
+        en: ['cos(3x)', 'sin(3x)', 'cosx', 'sinx'],
+        af: ['cos(3x)', 'sin(3x)', 'cosx', 'sinx']
+      },
+      correctIndex: 0
+    }
+  ]
+}
+
+    /* -------------------------------
+       PASTE PART 3 (Topic 2) HERE
+       Example:
+       {
+         id: 'g12-equations',
+         title: { ... },
+         summary: { ... },
+         quizTitle: { ... },
+         questions: [ ... ]
+       },
+    -------------------------------- */
+{
+  id: 'g12-equations',
+  title: {
+    en: 'Trig Equations & General Solutions',
+    af: 'Trig-vergelykings & Algemene Oplossings'
+  },
+  summary: {
+    en: `
+      <p><strong>Focus:</strong> Solve trigonometric equations using identities, special angles, and general solutions.</p>
+      <p>CAPS links: general solution forms, solving equations using identities, special angles, and reduction.</p>
+      <p>Key ideas: reference angles, quadrants, periodicity, and identity substitution.</p>
+    `,
+    af: `
+      <p><strong>Fokus:</strong> Los trigonometriese vergelykings op met identiteite, spesiale hoeke en algemene oplossings.</p>
+      <p>CAPS-skakels: algemene oplossingsvorme, oplossing van vergelykings met identiteite, spesiale hoeke en reduksie.</p>
+      <p>Belangrike idees: verwysingshoeke, kwadrante, periodisiteit en identiteitsubstitusie.</p>
+    `
+  },
+  quizTitle: {
+    en: 'Quiz – Trig Equations & General Solutions (Gr 12)',
+    af: 'Vraelys – Trig-vergelykings & Algemene Oplossings (Gr 12)'
+  },
+  questions: [
+    // -------------------------
+    // LEVEL 1 — KNOWLEDGE (10)
+    // -------------------------
+    {
+      id: 1301,
+      level: 1,
+      text: {
+        en: 'What is the general solution for sinx = k?',
+        af: 'Wat is die algemene oplossing vir sinx = k?'
+      },
+      options: {
+        en: [
+          'x = arcsin(k) + 360°n OR x = 180° − arcsin(k) + 360°n',
+          'x = arccos(k) + 360°n',
+          'x = arctan(k) + 180°n',
+          'x = 90° + 360°n'
+        ],
+        af: [
+          'x = arcsin(k) + 360°n OF x = 180° − arcsin(k) + 360°n',
+          'x = arccos(k) + 360°n',
+          'x = arctan(k) + 180°n',
+          'x = 90° + 360°n'
+        ]
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1302,
+      level: 1,
+      text: {
+        en: 'What is the general solution for cosx = k?',
+        af: 'Wat is die algemene oplossing vir cosx = k?'
+      },
+      options: {
+        en: [
+          'x = ± arccos(k) + 360°n',
+          'x = arcsin(k) + 360°n',
+          'x = arctan(k) + 180°n',
+          'x = 180° + 360°n'
+        ],
+        af: [
+          'x = ± arccos(k) + 360°n',
+          'x = arcsin(k) + 360°n',
+          'x = arctan(k) + 180°n',
+          'x = 180° + 360°n'
+        ]
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1303,
+      level: 1,
+      text: {
+        en: 'What is the general solution for tanx = k?',
+        af: 'Wat is die algemene oplossing vir tanx = k?'
+      },
+      options: {
+        en: [
+          'x = arctan(k) + 180°n',
+          'x = arctan(k) + 360°n',
+          'x = 90° + 180°n',
+          'x = 45° + 360°n'
+        ],
+        af: [
+          'x = arctan(k) + 180°n',
+          'x = arctan(k) + 360°n',
+          'x = 90° + 180°n',
+          'x = 45° + 360°n'
+        ]
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1304,
+      level: 1,
+      text: {
+        en: 'What is the period of sinx?',
+        af: 'Wat is die periode van sinx?'
+      },
+      options: {
+        en: ['360°', '180°', '90°', '720°'],
+        af: ['360°', '180°', '90°', '720°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1305,
+      level: 1,
+      text: {
+        en: 'What is the period of cosx?',
+        af: 'Wat is die periode van cosx?'
+      },
+      options: {
+        en: ['360°', '180°', '90°', '720°'],
+        af: ['360°', '180°', '90°', '720°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1306,
+      level: 1,
+      text: {
+        en: 'What is the period of tanx?',
+        af: 'Wat is die periode van tanx?'
+      },
+      options: {
+        en: ['180°', '360°', '90°', '720°'],
+        af: ['180°', '360°', '90°', '720°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1307,
+      level: 1,
+      text: {
+        en: 'Which trig function is undefined at 90°?',
+        af: 'Watter trigfunksie is ongedefinieerd by 90°?'
+      },
+      options: {
+        en: ['tanx', 'sinx', 'cosx', 'cotx'],
+        af: ['tanx', 'sinx', 'cosx', 'kotx']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1308,
+      level: 1,
+      text: {
+        en: 'Which trig function is undefined at 0°?',
+        af: 'Watter trigfunksie is ongedefinieerd by 0°?'
+      },
+      options: {
+        en: ['cotx', 'tanx', 'sinx', 'cosx'],
+        af: ['kotx', 'tanx', 'sinx', 'cosx']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1309,
+      level: 1,
+      text: {
+        en: 'What is the reference angle for 210°?',
+        af: 'Wat is die verwysingshoek vir 210°?'
+      },
+      options: {
+        en: ['30°', '45°', '60°', '15°'],
+        af: ['30°', '45°', '60°', '15°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1310,
+      level: 1,
+      text: {
+        en: 'What is the reference angle for 330°?',
+        af: 'Wat is die verwysingshoek vir 330°?'
+      },
+      options: {
+        en: ['30°', '45°', '60°', '15°'],
+        af: ['30°', '45°', '60°', '15°']
+      },
+      correctIndex: 0
+    },
+
+    // -------------------------
+    // LEVEL 2 — ROUTINE PROCEDURE (10)
+    // -------------------------
+    {
+      id: 1311,
+      level: 2,
+      text: {
+        en: 'Solve: sinx = 1/2 for 0° ≤ x ≤ 360°.',
+        af: 'Los op: sinx = 1/2 vir 0° ≤ x ≤ 360°.'
+      },
+      options: {
+        en: ['30°, 150°', '45°, 135°', '60°, 120°', '90°, 270°'],
+        af: ['30°, 150°', '45°, 135°', '60°, 120°', '90°, 270°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1312,
+      level: 2,
+      text: {
+        en: 'Solve: cosx = −√3/2 for 0° ≤ x ≤ 360°.',
+        af: 'Los op: cosx = −√3/2 vir 0° ≤ x ≤ 360°.'
+      },
+      options: {
+        en: ['150°, 210°', '120°, 240°', '90°, 270°', '30°, 330°'],
+        af: ['150°, 210°', '120°, 240°', '90°, 270°', '30°, 330°']
+      },
+      correctIndex: 1
+    },
+    {
+      id: 1313,
+      level: 2,
+      text: {
+        en: 'Solve: tanx = −1 for 0° ≤ x ≤ 360°.',
+        af: 'Los op: tanx = −1 vir 0° ≤ x ≤ 360°.'
+      },
+      options: {
+        en: ['135°, 315°', '45°, 225°', '90°, 270°', '30°, 210°'],
+        af: ['135°, 315°', '45°, 225°', '90°, 270°', '30°, 210°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1314,
+      level: 2,
+      text: {
+        en: 'Solve: 2 sinx = √3.',
+        af: 'Los op: 2 sinx = √3.'
+      },
+      options: {
+        en: ['60°, 120°', '30°, 150°', '45°, 225°', '90°, 270°'],
+        af: ['60°, 120°', '30°, 150°', '45°, 225°', '90°, 270°']
+      },
+      correctIndex: 1
+    },
+    {
+      id: 1315,
+      level: 2,
+      text: {
+        en: 'Solve: cosx = 1/2.',
+        af: 'Los op: cosx = 1/2.'
+      },
+      options: {
+        en: ['60°, 300°', '30°, 330°', '45°, 225°', '90°, 270°'],
+        af: ['60°, 300°', '30°, 330°', '45°, 225°', '90°, 270°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1316,
+      level: 2,
+      text: {
+        en: 'Solve: tanx = √3.',
+        af: 'Los op: tanx = √3.'
+      },
+      options: {
+        en: ['60°, 240°', '30°, 210°', '45°, 225°', '90°, 270°'],
+        af: ['60°, 240°', '30°, 210°', '45°, 225°', '90°, 270°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1317,
+      level: 2,
+      text: {
+        en: 'Solve: sinx = −1/2.',
+        af: 'Los op: sinx = −1/2.'
+      },
+      options: {
+        en: ['210°, 330°', '240°, 300°', '180°, 360°', '90°, 270°'],
+        af: ['210°, 330°', '240°, 300°', '180°, 360°', '90°, 270°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1318,
+      level: 2,
+      text: {
+        en: 'Solve: cosx = −1.',
+        af: 'Los op: cosx = −1.'
+      },
+      options: {
+        en: ['180°', '0°', '90°', '270°'],
+        af: ['180°', '0°', '90°', '270°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1319,
+      level: 2,
+      text: {
+        en: 'Solve: tanx = 0.',
+        af: 'Los op: tanx = 0.'
+      },
+      options: {
+        en: ['0°, 180°', '90°, 270°', '45°, 225°', '30°, 210°'],
+        af: ['0°, 180°', '90°, 270°', '45°, 225°', '30°, 210°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1320,
+      level: 2,
+      text: {
+        en: 'Solve: sinx = √2/2.',
+        af: 'Los op: sinx = √2/2.'
+      },
+      options: {
+        en: ['45°, 135°', '30°, 150°', '60°, 120°', '90°, 270°'],
+        af: ['45°, 135°', '30°, 150°', '60°, 120°', '90°, 270°']
+      },
+      correctIndex: 0
+    },
+
+    // -------------------------
+    // LEVEL 3 — COMPLEX PROCEDURE (10)
+    // -------------------------
+    {
+      id: 1321,
+      level: 3,
+      text: {
+        en: 'Solve: sin(2x) = √3/2 for 0° ≤ x ≤ 360°.',
+        af: 'Los op: sin(2x) = √3/2 vir 0° ≤ x ≤ 360°.'
+      },
+      options: {
+        en: ['30°, 75°, 210°, 255°', '15°, 75°, 195°, 255°', '60°, 120°, 240°, 300°', '45°, 135°, 225°, 315°'],
+        af: ['30°, 75°, 210°, 255°', '15°, 75°, 195°, 255°', '60°, 120°, 240°, 300°', '45°, 135°, 225°, 315°']
+      },
+      correctIndex: 1
+    },
+    {
+      id: 1322,
+      level: 3,
+      text: {
+        en: 'Solve: cos(2x) = −1/2 for 0° ≤ x ≤ 360°.',
+        af: 'Los op: cos(2x) = −1/2 vir 0° ≤ x ≤ 360°.'
+      },
+      options: {
+        en: ['60°, 120°, 240°, 300°', '45°, 135°, 225°, 315°', '30°, 150°, 210°, 330°', '90°, 270°'],
+        af: ['60°, 120°, 240°, 300°', '45°, 135°, 225°, 315°', '30°, 150°, 210°, 330°', '90°, 270°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1323,
+      level: 3,
+      text: {
+        en: 'Solve: tan(2x) = 1 for 0° ≤ x ≤ 360°.',
+        af: 'Los op: tan(2x) = 1 vir 0° ≤ x ≤ 360°.'
+      },
+      options: {
+        en: ['22.5°, 112.5°, 202.5°, 292.5°', '45°, 225°', '30°, 210°', '60°, 240°'],
+        af: ['22.5°, 112.5°, 202.5°, 292.5°', '45°, 225°', '30°, 210°', '60°, 240°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1324,
+      level: 3,
+      text: {
+        en: 'Solve: sinx + cosx = √2.',
+        af: 'Los op: sinx + cosx = √2.'
+      },
+      options: {
+        en: ['45°', '90°', '135°', '180°'],
+        af: ['45°', '90°', '135°', '180°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1325,
+      level: 3,
+      text: {
+        en: 'Solve: sinx − cosx = 0.',
+        af: 'Los op: sinx − cosx = 0.'
+      },
+      options: {
+        en: ['45°, 225°', '135°, 315°', '90°, 270°', '0°, 180°'],
+        af: ['45°, 225°', '135°, 315°', '90°, 270°', '0°, 180°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1326,
+      level: 3,
+      text: {
+        en: 'Solve: 2 sinx cosx = 1.',
+        af: 'Los op: 2 sinx cosx = 1.'
+      },
+      options: {
+        en: ['30°, 150°', '45°, 135°', '60°, 120°', '90°'],
+        af: ['30°, 150°', '45°, 135°', '60°, 120°', '90°']
+      },
+      correctIndex: 1
+    },
+    {
+      id: 1327,
+      level: 3,
+      text: {
+        en: 'Solve: sin²x = 3/4.',
+        af: 'Los op: sin²x = 3/4.'
+      },
+      options: {
+        en: ['60°, 120°, 240°, 300°',
+    /* -------------------------------
+       PASTE PART 4 (Topic 3) HERE
+       Example:
+       {
+         id: 'g12-analytic',
+         title: { ... },
+         summary: { ... },
+         quizTitle: { ... },
+         questions: [ ... ]
+       },
+    -------------------------------- */
+{
+  id: 'g12-analytic',
+  title: {
+    en: 'Trig in Analytical Geometry',
+    af: 'Trig in Analitiese Meetkunde'
+  },
+  summary: {
+    en: `
+      <p><strong>Focus:</strong> Use trigonometry to solve problems involving gradients, angles between lines, and coordinate geometry.</p>
+      <p>CAPS links: angle between two lines, gradient relationships, trig ratios in coordinate form.</p>
+      <p>Key ideas: slope-angle link, perpendicular gradients, direction of a line, and coordinate-based trig.</p>
+    `,
+    af: `
+      <p><strong>Fokus:</strong> Gebruik trigonometrie om probleme op te los wat hellings, hoeke tussen lyne en koördinaatgeometrie behels.</p>
+      <p>CAPS-skakels: hoek tussen twee lyne, hellingverhoudings, trigverhoudings in koördinaatvorm.</p>
+      <p>Belangrike idees: helling-hoek skakel, loodregte hellings, rigting van ’n lyn, en trig in koördinate.</p>
+    `
+  },
+  quizTitle: {
+    en: 'Quiz – Trig in Analytical Geometry (Gr 12)',
+    af: 'Vraelys – Trig in Analitiese Meetkunde (Gr 12)'
+  },
+  questions: [
+    // LEVEL 1 — KNOWLEDGE (10)
+    {
+      id: 1401,
+      level: 1,
+      text: {
+        en: 'What is the gradient formula?',
+        af: 'Wat is die hellingformule?'
+      },
+      options: {
+        en: ['(y₂ − y₁) / (x₂ − x₁)', '(x₂ − x₁) / (y₂ − y₁)', 'x₂ + y₂', 'y₁ − x₁'],
+        af: ['(y₂ − y₁) / (x₂ − x₁)', '(x₂ − x₁) / (y₂ − y₁)', 'x₂ + y₂', 'y₁ − x₁']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1402,
+      level: 1,
+      text: {
+        en: 'What is the relationship between perpendicular gradients?',
+        af: 'Wat is die verhouding tussen loodregte hellings?'
+      },
+      options: {
+        en: ['m₁ × m₂ = −1', 'm₁ = m₂', 'm₁ + m₂ = 0', 'm₁ − m₂ = 1'],
+        af: ['m₁ × m₂ = −1', 'm₁ = m₂', 'm₁ + m₂ = 0', 'm₁ − m₂ = 1']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1403,
+      level: 1,
+      text: {
+        en: 'What trig ratio links gradient and angle?',
+        af: 'Watter trigverhouding koppel helling en hoek?'
+      },
+      options: {
+        en: ['tanθ = m', 'sinθ = m', 'cosθ = m', 'cotθ = m'],
+        af: ['tanθ = m', 'sinθ = m', 'cosθ = m', 'kotθ = m']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1404,
+      level: 1,
+      text: {
+        en: 'If a line makes a 45° angle with the x-axis, what is its gradient?',
+        af: 'As ’n lyn ’n hoek van 45° met die x-as maak, wat is sy helling?'
+      },
+      options: {
+        en: ['1', '√3', '1/2', '0'],
+        af: ['1', '√3', '1/2', '0']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1405,
+      level: 1,
+      text: {
+        en: 'If a line has gradient 0, what is its angle of inclination?',
+        af: 'As ’n lyn helling 0 het, wat is sy hellingshoek?'
+      },
+      options: {
+        en: ['0°', '90°', '180°', '360°'],
+        af: ['0°', '90°', '180°', '360°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1406,
+      level: 1,
+      text: {
+        en: 'If a line has undefined gradient, what is its angle?',
+        af: 'As ’n lyn ’n ongedefinieerde helling het, wat is sy hoek?'
+      },
+      options: {
+        en: ['90°', '0°', '45°', '180°'],
+        af: ['90°', '0°', '45°', '180°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1407,
+      level: 1,
+      text: {
+        en: 'What is the formula for the angle between two lines?',
+        af: 'Wat is die formule vir die hoek tussen twee lyne?'
+      },
+      options: {
+        en: [
+          'tanθ = |(m₁ − m₂) / (1 + m₁m₂)|',
+          'sinθ = m₁ + m₂',
+          'cosθ = m₁m₂',
+          'tanθ = m₁m₂'
+        ],
+        af: [
+          'tanθ = |(m₁ − m₂) / (1 + m₁m₂)|',
+          'sinθ = m₁ + m₂',
+          'cosθ = m₁m₂',
+          'tanθ = m₁m₂'
+        ]
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1408,
+      level: 1,
+      text: {
+        en: 'If m₁ = 2 and m₂ = 2, what is the angle between the lines?',
+        af: 'As m₁ = 2 en m₂ = 2, wat is die hoek tussen die lyne?'
+      },
+      options: {
+        en: ['0°', '90°', '45°', '180°'],
+        af: ['0°', '90°', '45°', '180°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1409,
+      level: 1,
+      text: {
+        en: 'If m₁ = 2 and m₂ = −1/2, what is true?',
+        af: 'As m₁ = 2 en m₂ = −1/2, wat is waar?'
+      },
+      options: {
+        en: ['Lines are perpendicular', 'Lines are parallel', 'Lines intersect at 45°', 'Lines never meet'],
+        af: ['Lyne is loodreg', 'Lyne is parallel', 'Lyne sny teen 45°', 'Lyne ontmoet nooit']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1410,
+      level: 1,
+      text: {
+        en: 'If tanθ = 3, what is θ?',
+        af: 'As tanθ = 3, wat is θ?'
+      },
+      options: {
+        en: ['71.6°', '60°', '45°', '30°'],
+        af: ['71.6°', '60°', '45°', '30°']
+      },
+      correctIndex: 0
+    },
+
+    // LEVEL 2 — ROUTINE PROCEDURE (10)
+    {
+      id: 1411,
+      level: 2,
+      text: {
+        en: 'Find the gradient of the line through (2, 3) and (6, 11).',
+        af: 'Vind die helling van die lyn deur (2, 3) en (6, 11).'
+      },
+      options: {
+        en: ['2', '3', '4', '1'],
+        af: ['2', '3', '4', '1']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1412,
+      level: 2,
+      text: {
+        en: 'Find the angle of inclination of a line with gradient 1.',
+        af: 'Vind die hellingshoek van ’n lyn met helling 1.'
+      },
+      options: {
+        en: ['45°', '30°', '60°', '90°'],
+        af: ['45°', '30°', '60°', '90°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1413,
+      level: 2,
+      text: {
+        en: 'Find the gradient of a line making a 60° angle with the x-axis.',
+        af: 'Vind die helling van ’n lyn wat ’n hoek van 60° met die x-as maak.'
+      },
+      options: {
+        en: ['√3', '1', '1/2', '0'],
+        af: ['√3', '1', '1/2', '0']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1414,
+      level: 2,
+      text: {
+        en: 'Find the angle between lines with gradients 1 and −1.',
+        af: 'Vind die hoek tussen lyne met hellings 1 en −1.'
+      },
+      options: {
+        en: ['90°', '45°', '60°', '30°'],
+        af: ['90°', '45°', '60°', '30°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1415,
+      level: 2,
+      text: {
+        en: 'Find the gradient of a line perpendicular to y = 3x + 1.',
+        af: 'Vind die helling van ’n lyn loodreg op y = 3x + 1.'
+      },
+      options: {
+        en: ['−1/3', '3', '1/3', '−3'],
+        af: ['−1/3', '3', '1/3', '−3']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1416,
+      level: 2,
+      text: {
+        en: 'Find the angle between lines with gradients 2 and 3.',
+        af: 'Vind die hoek tussen lyne met hellings 2 en 3.'
+      },
+      options: {
+        en: ['10.3°', '15°', '30°', '45°'],
+        af: ['10.3°', '15°', '30°', '45°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1417,
+      level: 2,
+      text: {
+        en: 'Find the gradient of a line parallel to y = −4x + 7.',
+        af: 'Vind die helling van ’n lyn parallel aan y = −4x + 7.'
+      },
+      options: {
+        en: ['−4', '4', '1/4', '−1/4'],
+        af: ['−4', '4', '1/4', '−1/4']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1418,
+      level: 2,
+      text: {
+        en: 'Find the angle of inclination of a line with gradient √3.',
+        af: 'Vind die hellingshoek van ’n lyn met helling √3.'
+      },
+      options: {
+        en: ['60°', '30°', '45°', '90°'],
+        af: ['60°', '30°', '45°', '90°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1419,
+      level: 2,
+      text: {
+        en: 'Find the gradient of a line making a 30° angle with the x-axis.',
+        af: 'Vind die helling van ’n lyn wat ’n hoek van 30° met die x-as maak.'
+      },
+      options: {
+        en: ['1/√3', '√3', '1', '0'],
+        af: ['1/√3', '√3', '1', '0']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1420,
+      level: 2,
+      text: {
+        en: 'Find the angle between lines with gradients 1/2 and 2.',
+        af: 'Vind die hoek tussen lyne met hellings 1/2 en 2.'
+      },
+      options: {
+        en: ['36.9°', '45°', '60°', '30°'],
+        af: ['36.9°', '45°', '60°', '30°']
+      },
+      correctIndex: 0
+    },
+
+    // LEVEL 3 — COMPLEX PROCEDURE (10)
+    {
+      id: 1421,
+      level: 3,
+      text: {
+        en: 'Find the angle between lines through (1, 2)-(4, 8) and (2, 3)-(5, 5).',
+        af: 'Vind die hoek tussen lyne deur (1, 2)-(4, 8) en (2, 3)-(5, 5).'
+      },
+      options: {
+        en: ['18.4°', '30°', '45°', '60°'],
+        af: ['18.4°', '30°', '45°', '60°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1422,
+      level: 3,
+      text: {
+        en: 'Find the angle of inclination of the line through (3, 4) and (7, 10).',
+        af: 'Vind die hellingshoek van die lyn deur (3, 4) en (7, 10).'
+      },
+      options: {
+        en: ['45°', '30°', '60°', '15°'],
+        af: ['45°', '30°', '60°', '15°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1423,
+      level: 3,
+      text: {
+        en: 'Find the gradient of a line perpendicular to the line through (1, 2) and (4, 14).',
+        af: 'Vind die helling van ’n lyn loodreg op die lyn deur (1, 2) en (4, 14).'
+      },
+      options: {
+        en: ['−1/4', '1/4', '4', '−4'],
+        af: ['−1/4', '1/4', '4', '−4']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1424,
+      level: 3,
+      text: {
+        en: 'Find the angle between lines with gradients −2 and 1/2.',
+        af: 'Vind die hoek tussen lyne met hellings −2 en 1/2.'
+      },
+      options: {
+        en: ['90°', '45°', '60°', '30°'],
+        af: ['90°', '45°', '60°', '30°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1425,
+      level: 3,
+      text: {
+        en: 'Find the angle between lines y = 2x + 1 and y = −x + 4.',
+        af: 'Vind die hoek tussen lyne y = 2x + 1 en y = −x + 4.'
+      },
+      options: {
+        en: ['71.6°', '45°', '30°', '60°'],
+        af: ['71.6°', '45°', '30°', '60°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1426,
+      level: 3,
+      text: {
+        en: 'Find the angle between lines y = 3x − 2 and y = 3x + 5.',
+        af: 'Vind die hoek tussen lyne y = 3x − 2 en y = 3x + 5.'
+      },
+      options: {
+        en: ['0°', '90°', '45°', '60°'],
+        af: ['0°', '90°', '45°', '60°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1427,
+      level: 3,
+      text: {
+        en: 'Find the angle between lines y = −2x + 1 and y = 1/2x − 3.',
+        af: 'Vind die hoek tussen lyne y = −2x + 1 en y = 1/2x − 3.'
+      },
+      options: {
+        en: ['90°', '45°', '60°', '30°'],
+        af: ['90°', '45°', '60°', '30°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1428,
+      level: 3,
+      text: {
+        en: 'Find the angle of inclination of the line y = √3x + 2.',
+        af: 'Vind die hellingshoek van die lyn y = √3x + 2.'
+      },
+      options: {
+        en: ['60°', '30°', '45°', '90°'],
+        af: ['60°', '30°', '45°', '90°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1429,
+      level: 3,
+      text: {
+        en: 'Find the angle between lines with gradients 5 and −1/5.',
+        af: 'Vind die hoek tussen lyne met hellings 5 en −1/5.'
+
+    /* -------------------------------
+       PASTE PART 4 (Topic 4) HERE
+       Example:
+       {
+         id: 'g12-applications',
+         title: { ... },
+         summary: { ... },
+         quizTitle: { ... },
+         questions: [ ... ]
+       }
+    -------------------------------- */
+{
+  id: 'g12-applications',
+  title: {
+    en: 'Advanced Trig Applications',
+    af: 'Gevorderde Trig-toepassings'
+  },
+  summary: {
+    en: `
+      <p><strong>Focus:</strong> Apply trigonometry to complex real‑world problems involving bearings, navigation, 2D modelling, and multi‑step angle reasoning.</p>
+      <p>CAPS links: bearings, angles of elevation/depression, multi‑triangle problems, modelling real contexts.</p>
+      <p>Key ideas: diagram interpretation, multi‑step trig, bearings, and combining identities with geometry.</p>
+    `,
+    af: `
+      <p><strong>Fokus:</strong> Pas trigonometrie toe op gevorderde werklike probleme met rigtings, navigasie, 2D‑modellering en meerstap‑hoekredenasie.</p>
+      <p>CAPS‑skakels: rigtings, elevasie/depressie, meerdriehoek‑probleme, modellering van werklike situasies.</p>
+      <p>Belangrike idees: diagraminterpretasie, meerstap‑trig, rigtings en kombinasie van identiteite met meetkunde.</p>
+    `
+  },
+  quizTitle: {
+    en: 'Quiz – Advanced Trig Applications (Gr 12)',
+    af: 'Vraelys – Gevorderde Trig-toepassings (Gr 12)'
+  },
+  questions: [
+    // -------------------------
+    // LEVEL 1 — KNOWLEDGE (10)
+    // -------------------------
+    {
+      id: 1501,
+      level: 1,
+      text: {
+        en: 'What is a bearing?',
+        af: 'Wat is ’n rigting (bearing)?'
+      },
+      options: {
+        en: [
+          'A clockwise angle measured from North',
+          'A counter‑clockwise angle from East',
+          'An angle inside a triangle',
+          'A vertical angle'
+        ],
+        af: [
+          '’n Kloksgewyse hoek gemeet vanaf Noord',
+          '’n Antikloksgewyse hoek vanaf Oos',
+          '’n Hoek binne ’n driehoek',
+          '’n Vertikale hoek'
+        ]
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1502,
+      level: 1,
+      text: {
+        en: 'What is an angle of elevation?',
+        af: 'Wat is ’n elevasiehoek?'
+      },
+      options: {
+        en: [
+          'Angle measured upward from the horizontal',
+          'Angle measured downward from the horizontal',
+          'Angle between two lines',
+          'Angle inside a triangle'
+        ],
+        af: [
+          'Hoek wat opwaarts vanaf die horisontaal gemeet word',
+          'Hoek wat afwaarts vanaf die horisontaal gemeet word',
+          'Hoek tussen twee lyne',
+          'Hoek binne ’n driehoek'
+        ]
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1503,
+      level: 1,
+      text: {
+        en: 'What is an angle of depression?',
+        af: 'Wat is ’n depressiehoek?'
+      },
+      options: {
+        en: [
+          'Angle measured downward from the horizontal',
+          'Angle measured upward from the horizontal',
+          'Angle inside a triangle',
+          'Angle between two lines'
+        ],
+        af: [
+          'Hoek wat afwaarts vanaf die horisontaal gemeet word',
+          'Hoek wat opwaarts vanaf die horisontaal gemeet word',
+          'Hoek binne ’n driehoek',
+          'Hoek tussen twee lyne'
+        ]
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1504,
+      level: 1,
+      text: {
+        en: 'What trig ratio is height ÷ distance?',
+        af: 'Watter trigverhouding is hoogte ÷ afstand?'
+      },
+      options: {
+        en: ['tan', 'sin', 'cos', 'cot'],
+        af: ['tan', 'sin', 'cos', 'kot']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1505,
+      level: 1,
+      text: {
+        en: 'What trig ratio is opposite ÷ hypotenuse?',
+        af: 'Watter trigverhouding is oorkant ÷ skuinssy?'
+      },
+      options: {
+        en: ['sin', 'cos', 'tan', 'cot'],
+        af: ['sin', 'cos', 'tan', 'kot']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1506,
+      level: 1,
+      text: {
+        en: 'What trig ratio is adjacent ÷ hypotenuse?',
+        af: 'Watter trigverhouding is aangrensend ÷ skuinssy?'
+      },
+      options: {
+        en: ['cos', 'sin', 'tan', 'cot'],
+        af: ['cos', 'sin', 'tan', 'kot']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1507,
+      level: 1,
+      text: {
+        en: 'Bearings are measured…',
+        af: 'Rigtings word gemeet…'
+      },
+      options: {
+        en: [
+          'Clockwise from North',
+          'Counter‑clockwise from North',
+          'Clockwise from East',
+          'Counter‑clockwise from South'
+        ],
+        af: [
+          'Kloksgewys vanaf Noord',
+          'Antikloksgewys vanaf Noord',
+          'Kloksgewys vanaf Oos',
+          'Antikloksgewys vanaf Suid'
+        ]
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1508,
+      level: 1,
+      text: {
+        en: 'Which angle is equal in elevation/depression problems?',
+        af: 'Watter hoek is gelyk in elevasie/depressie‑probleme?'
+      },
+      options: {
+        en: ['Alternate interior angles', 'Corresponding angles', 'Vertical angles', 'Right angles'],
+        af: ['Alternerende binnehoeke', 'Ooreenstemmende hoeke', 'Oorkantste hoeke', 'Regte hoeke']
+      },
+      correctIndex: 1
+    },
+    {
+      id: 1509,
+      level: 1,
+      text: {
+        en: 'What must always be drawn first in a trig application?',
+        af: 'Wat moet altyd eerste geteken word in ’n trigtoepassing?'
+      },
+      options: {
+        en: ['A diagram', 'A graph', 'A table', 'A number line'],
+        af: ['’n Diagram', '’n Grafiek', '’n Tabel', '’n Getallyn']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1510,
+      level: 1,
+      text: {
+        en: 'Which trig ratio is distance ÷ hypotenuse?',
+        af: 'Watter trigverhouding is afstand ÷ skuinssy?'
+      },
+      options: {
+        en: ['cos', 'sin', 'tan', 'cot'],
+        af: ['cos', 'sin', 'tan', 'kot']
+      },
+      correctIndex: 0
+    },
+
+    // -------------------------
+    // LEVEL 2 — ROUTINE PROCEDURE (10)
+    // -------------------------
+    {
+      id: 1511,
+      level: 2,
+      text: {
+        en: 'A building casts a 40 m shadow. The angle of elevation of the sun is 35°. Find the height.',
+        af: '’n Gebou gooi ’n skadu van 40 m. Die elevasiehoek van die son is 35°. Bereken die hoogte.'
+      },
+      options: {
+        en: ['28.0 m', '22.3 m', '35.0 m', '18.5 m'],
+        af: ['28.0 m', '22.3 m', '35.0 m', '18.5 m']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1512,
+      level: 2,
+      text: {
+        en: 'A tower is 50 m tall. The angle of depression to a car is 20°. Find the horizontal distance.',
+        af: '’n Toring is 50 m hoog. Die depressiehoek na ’n motor is 20°. Bereken die horisontale afstand.'
+      },
+      options: {
+        en: ['137.4 m', '100 m', '75 m', '50 m'],
+        af: ['137.4 m', '100 m', '75 m', '50 m']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1513,
+      level: 2,
+      text: {
+        en: 'A ship sails on a bearing of 060°. What direction is this?',
+        af: '’n Skip vaar op ’n rigting van 060°. Watter rigting is dit?'
+      },
+      options: {
+        en: ['60° clockwise from North', '60° from East', '60° from South', '60° from West'],
+        af: ['60° kloksgewys vanaf Noord', '60° vanaf Oos', '60° vanaf Suid', '60° vanaf Wes']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1514,
+      level: 2,
+      text: {
+        en: 'A plane climbs at 12°. After flying 500 m horizontally, how high is it?',
+        af: '’n Vliegtuig klim teen 12°. Na 500 m horisontaal, hoe hoog is dit?'
+      },
+      options: {
+        en: ['103.9 m', '120 m', '150 m', '80 m'],
+        af: ['103.9 m', '120 m', '150 m', '80 m']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1515,
+      level: 2,
+      text: {
+        en: 'A lighthouse is 30 m tall. A boat sees it at an elevation angle of 18°. Find the distance.',
+        af: '’n Vuurtoring is 30 m hoog. ’n Boot sien dit teen ’n elevasiehoek van 18°. Bereken die afstand.'
+      },
+      options: {
+        en: ['92.3 m', '80 m', '60 m', '120 m'],
+        af: ['92.3 m', '80 m', '60 m', '120 m']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1516,
+      level: 2,
+      text: {
+        en: 'A drone rises at 25°. After flying 100 m horizontally, how high is it?',
+        af: '’n Hommeltuig styg teen 25°. Na 100 m horisontaal, hoe hoog is dit?'
+      },
+      options: {
+        en: ['46.6 m', '30 m', '50 m', '60 m'],
+        af: ['46.6 m', '30 m', '50 m', '60 m']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1517,
+      level: 2,
+      text: {
+        en: 'A person looks down at a boat with a depression angle of 40°. The cliff is 70 m high. Find the distance.',
+        af: '’n Persoon kyk af na ’n boot met ’n depressiehoek van 40°. Die krans is 70 m hoog. Bereken die afstand.'
+      },
+      options: {
+        en: ['83.4 m', '70 m', '100 m', '60 m'],
+        af: ['83.4 m', '70 m', '100 m', '60 m']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1518,
+      level: 2,
+      text: {
+        en: 'A ladder 10 m long leans against a wall at 70°. How high does it reach?',
+        af: '’n Leer van 10 m leun teen ’n muur teen 70°. Hoe hoog reik dit?'
+      },
+      options: {
+        en: ['9.4 m', '8.7 m', '7.5 m', '6.4 m'],
+        af: ['9.4 m', '8.7 m', '7.5 m', '6.4 m']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1519,
+      level: 2,
+      text: {
+        en: 'A ramp rises 2 m over 12 m. Find the angle.',
+        af: '’n Oprit styg 2 m oor 12 m. Bereken die hoek.'
+      },
+      options: {
+        en: ['9.5°', '12°', '15°', '20°'],
+        af: ['9.5°', '12°', '15°', '20°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1520,
+      level: 2,
+      text: {
+        en: 'A tree is 18 m tall. The angle of elevation from a point is 28°. Find the distance.',
+        af: '’n Boom is 18 m hoog. Die elevasiehoek vanaf ’n punt is 28°. Bereken die afstand.'
+      },
+      options: {
+        en: ['34.0 m', '30 m', '25 m', '40 m'],
+        af: ['34.0 m', '30 m', '25 m', '40 m']
+      },
+      correctIndex: 0
+    },
+
+    // -------------------------
+    // LEVEL 3 — COMPLEX PROCEDURE (10)
+    // -------------------------
+    {
+      id: 1521,
+      level: 3,
+      text: {
+        en: 'Two buildings are 50 m apart. The angle of elevation to the top of the taller building is 48°. The shorter building is 20 m tall. Find the height of the taller building.',
+        af: 'Twee geboue is 50 m uitmekaar. Die elevasiehoek na die top van die hoër gebou is 48°. Die laer gebou is 20 m hoog. Bereken die hoogte van die hoër gebou.'
+      },
+      options: {
+        en: ['75.5 m', '60.2 m', '55.8 m', '70.1 m'],
+        af: ['75.5 m', '60.2 m', '55.8 m', '70.1 m']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1522,
+      level: 3,
+      text: {
+        en: 'A person walks 30 m toward a tower. The angle of elevation changes from 18° to 32°. Find the height.',
+        af: '’n Persoon loop 30 m na ’n toring toe. Die elevasiehoek verander van 18° na 32°. Bereken die hoogte.'
+      },
+      options: {
+        en: ['28.0 m', '32.5 m', '22.3 m', '18.9 m'],
+        af: ['28.0 m', '32.5 m', '22.3 m', '18.9 m']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1523,
+      level: 3,
+      text: {
+        en: 'A plane descends at 7°. After flying 3 km horizontally, how much altitude is lost?',
+        af: '’n Vliegtuig daal teen 7°. Na 3 km horisontaal, hoeveel hoogte verloor dit?'
+      },
+      options: {
+        en: ['366 m', '420 m', '300 m', '500 m'],
+        af: ['366 m', '420 m', '300 m', '500 m']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1524,
+      level: 3,
+      text: {
+        en: 'A crane lifts a load using a 40 m cable at 55°. How high is the load?',
+        af: '’n Hyskraan lig ’n vrag met ’n 40 m kabel teen 55°. Hoe hoog is die vrag?'
+      },
+      options: {
+        en: ['32.8 m', '28.0 m', '35.0 m', '30.5 m'],
+        af: ['32.8 m', '28.0 m', '35.0 m', '30.5 m']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1525,
+      level: 3,
+      text: {
+        en: 'A ship sails 12 km on a bearing of 040°, then 8 km on a bearing of 130°. Find the distance from the start.',
+        af: '’n Skip vaar 12 km op ’n rigting van 040°, dan 8 km op ’n rigting van 130°. Bereken die afstand vanaf die beginpunt.'
+      },
+      options: {
+        en: ['14.8 km', '12 km', '18 km', '10 km'],
+        af: ['14.8 km', '12 km', '18 km', '10 km']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1526,
+      level: 3,
+      text: {
+        en: 'A drone flies 50 m north, then 70 m east. Find the bearing from the start.',
+        af: '’n Hommeltuig vlieg 50 m noord, dan 70 m oos. Bereken die rigting vanaf die beginpunt.'
+      },
+      options: {
+        en: ['54.5°', '35°', '60°', '45°'],
+        af: ['54.5°', '35°', '60°', '45°']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 1527,
+      level: 3,
+      text: {
+        en: 'A person sees the top of a tower at 28°. After walking 40 m closer, the angle becomes 52°. Find the height.',
+        af: '’n Persoon sien
+  ]
+};
+
+
+/* -----------------------------
+   LANGUAGE + TOPIC SWITCHING
+   ----------------------------- */
+
+let currentLang = 'en';
+let currentSectionId = null;
+
+const langButtons = document.querySelectorAll('.lang-btn');
+const topicSelect = document.getElementById('topicSelect');
+
+langButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    langButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentLang = btn.dataset.lang;
+    renderSection();
+  });
+});
+
+function populateDropdown() {
+  topicSelect.innerHTML = '';
+  data.sections.forEach(sec => {
+    const opt = document.createElement('option');
+    opt.value = sec.id;
+    opt.textContent = sec.title[currentLang];
+    topicSelect.appendChild(opt);
+  });
+
+  if (!currentSectionId && data.sections.length > 0) {
+    currentSectionId = data.sections[0].id;
+  }
+
+  topicSelect.value = currentSectionId;
+}
+
+topicSelect.addEventListener('change', () => {
+  currentSectionId = topicSelect.value;
+  renderSection();
+});
+
+/* -----------------------------
+   RENDER SECTION + QUIZ
+   ----------------------------- */
+
+function renderSection() {
+  const sec = data.sections.find(s => s.id === currentSectionId);
+  if (!sec) return;
+
+  document.getElementById('sectionTitle').innerHTML = sec.title[currentLang];
+  document.getElementById('sectionSummary').innerHTML = sec.summary[currentLang];
+  document.getElementById('quizTitle').innerHTML = sec.quizTitle[currentLang];
+
+  renderQuiz(sec.questions);
+}
+
+function renderQuiz(questions) {
+  const quizContainer = document.getElementById('quizContainer');
+  quizContainer.innerHTML = '';
+
+  questions.forEach((q, index) => {
+    const div = document.createElement('div');
+    div.className = 'question';
+
+    div.innerHTML = `
+      <strong>${index + 1}. ${q.text[currentLang]}</strong>
+      <div class="options">
+        ${q.options[currentLang].map((opt, i) => `
+          <label>
+            <input type="radio" name="q${index}" value="${i}">
+            ${opt}
+          </label>
+        `).join('')}
+      </div>
+    `;
+
+    quizContainer.appendChild(div);
+  });
+}
+
+/* -----------------------------
+   QUIZ SUBMISSION
+   ----------------------------- */
+
+document.getElementById('submitQuizBtn').addEventListener('click', () => {
+  const sec = data.sections.find(s => s.id === currentSectionId);
+  const questions = sec.questions;
+
+  let score = 0;
+
+  questions.forEach((q, index) => {
+    const selected = document.querySelector(`input[name="q${index}"]:checked`);
+    if (selected && Number(selected.value) === q.correctIndex) {
+      score++;
+    }
+  });
+
+  document.getElementById('quizResult').textContent =
+    `${score} / ${questions.length} correct`;
+});
+
+document.getElementById('resetQuizBtn').addEventListener('click', () => {
+  document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+  document.getElementById('quizResult').textContent = '';
+});
+
+/* -----------------------------
+   INITIAL LOAD
+   ----------------------------- */
+
+populateDropdown();
+renderSection();
+
+</script>
+
+</body>
+</html>
