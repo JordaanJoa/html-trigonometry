@@ -182,9 +182,57 @@ const data = {
           af: 'Vraelys – Trig‑basics (Gr 11)'
         },
         // 40 QUESTIONS: 10 per level
-        questions: [
-          // LEVEL 1 – KNOWLEDGE (10)
-          {
+        // -------------------------------
+// -------------------------------
+// LANGUAGE SWITCH FUNCTIONALITY
+// -------------------------------
+const langButtons = document.querySelectorAll('.lang-btn');
+let currentLang = 'en';
+
+langButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        currentLang = btn.dataset.lang;
+
+        // Toggle active button style
+        langButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Re-render content in selected language
+        populateDropdown();
+        renderSection();
+    });
+});
+// -------------------------------
+// DROPDOWN REFRESH FUNCTIONALITY
+// -------------------------------
+function populateDropdown() {
+    const topicSelect = document.getElementById('topicSelect');
+    topicSelect.innerHTML = '';
+
+    data.sections.forEach(section => {
+        const option = document.createElement('option');
+        option.value = section.id;
+        option.textContent = section.title[currentLang];
+        topicSelect.appendChild(option);
+    });
+
+    topicSelect.addEventListener('change', renderSection);
+}
+
+// -------------------------------
+// INITIAL LOAD
+// -------------------------------
+document.addEventListener("DOMContentLoaded", () => {
+    populateDropdown();
+    renderSection();
+});
+
+// -------------------------------
+// QUIZ DATA
+// -------------------------------
+const questions = [
+    // LEVEL 1 – KNOWLEDGE (10)
+    {
             id: 101,
             level: 1,
             text: {
