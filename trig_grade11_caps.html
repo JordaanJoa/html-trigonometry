@@ -754,15 +754,457 @@
         ]
       },
 
-      // ---------- ADD MORE GRADE 11 TOPICS HERE ----------
-      // Copy the whole object above, change:
-      // id, title.en/af, summary.en/af, quizTitle.en/af, and questions[...]
-      // Example topics:
-      // - g11-graphs
-      // - g11-identities
-      // - g11-applications
-    ]
-  };
+    // ---------- ADD MORE GRADE 11 TOPICS HERE ----------
+// Copy the whole object above, change:
+// id, title.en/af, summary.en/af, quizTitle.en/af, and questions[...]
+// Example topics:
+// - g11-graphs
+// - g11-identities
+// - g11-applications
+
+{   // 👈 PASTE YOUR TOPIC 2 BLOCK HERE
+    id: 'g11-graphs',
+    title: { … },
+    summary: { … },
+    quizTitle: { … },
+    questions: [ … ]
+},
+
+]
+};
+{
+  id: 'g11-graphs',
+  title: {
+    en: 'Trig Graphs: sin, cos, tan',
+    af: 'Trig‑grafieke: sin, cos, tan'
+  },
+  summary: {
+    en: `
+      <p><strong>Focus:</strong> Sketch and interpret graphs of y = sin x, y = cos x, y = tan x in degrees.</p>
+      <p>CAPS links: Period, amplitude, vertical shift; effects of a, k, p, q in y = a sin(kx + p) + q.</p>
+      <p>Key ideas: Domain, range, intercepts, asymptotes (tan), transformations.</p>
+    `,
+    af: `
+      <p><strong>Fokus:</strong> Skets en interpreteer grafieke van y = sin x, y = cos x, y = tan x in grade.</p>
+      <p>CAPS‑skakels: Periode, amplitude, vertikale verskuiwing; effekte van a, k, p, q in y = a sin(kx + p) + q.</p>
+      <p>Belangrike idees: Domein, omvang, snypunte, asimptote (tan), transformasies.</p>
+    `
+  },
+  quizTitle: {
+    en: 'Quiz – Trig Graphs (Gr 11)',
+    af: 'Vraelys – Trig‑grafieke (Gr 11)'
+  },
+  questions: [
+    // -----------------------------
+    // LEVEL 1 — KNOWLEDGE (10)
+    // -----------------------------
+    {
+      id: 501,
+      level: 1,
+      text: {
+        en: 'What is the period of y = sin x in degrees?',
+        af: 'Wat is die periode van y = sin x in grade?'
+      },
+      options: {
+        en: ['90°', '180°', '270°', '360°'],
+        af: ['90°', '180°', '270°', '360°']
+      },
+      correctIndex: 3
+    },
+    {
+      id: 502,
+      level: 1,
+      text: {
+        en: 'What is the amplitude of y = sin x?',
+        af: 'Wat is die amplitude van y = sin x?'
+      },
+      options: {
+        en: ['0', '1', '2', 'Undefined'],
+        af: ['0', '1', '2', 'Ongedefinieer']
+      },
+      correctIndex: 1
+    },
+    {
+      id: 503,
+      level: 1,
+      text: {
+        en: 'What is the range of y = cos x?',
+        af: 'Wat is die omvang van y = cos x?'
+      },
+      options: {
+        en: ['[-1, 1]', '[0, 1]', '[-2, 2]', 'All real numbers'],
+        af: ['[-1, 1]', '[0, 1]', '[-2, 2]', 'Alle reële getalle']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 504,
+      level: 1,
+      text: {
+        en: 'Which trig function has vertical asymptotes?',
+        af: 'Watter trigfunksie het vertikale asimptote?'
+      },
+      options: {
+        en: ['sin x', 'cos x', 'tan x', 'None'],
+        af: ['sin x', 'cos x', 'tan x', 'Geen']
+      },
+      correctIndex: 2
+    },
+    {
+      id: 505,
+      level: 1,
+      text: {
+        en: 'What is the maximum value of y = sin x?',
+        af: 'Wat is die maksimum waarde van y = sin x?'
+      },
+      options: {
+        en: ['0', '1', '2', '-1'],
+        af: ['0', '1', '2', '-1']
+      },
+      correctIndex: 1
+    },
+    {
+      id: 506,
+      level: 1,
+      text: {
+        en: 'What is the minimum value of y = cos x?',
+        af: 'Wat is die minimum waarde van y = cos x?'
+      },
+      options: {
+        en: ['0', '1', '-1', '-2'],
+        af: ['0', '1', '-1', '-2']
+      },
+      correctIndex: 2
+    },
+    {
+      id: 507,
+      level: 1,
+      text: {
+        en: 'What is the period of y = tan x?',
+        af: 'Wat is die periode van y = tan x?'
+      },
+      options: {
+        en: ['90°', '180°', '270°', '360°'],
+        af: ['90°', '180°', '270°', '360°']
+      },
+      correctIndex: 1
+    },
+    {
+      id: 508,
+      level: 1,
+      text: {
+        en: 'Which graph passes through (0°, 0)?',
+        af: 'Watter grafiek gaan deur (0°, 0)?'
+      },
+      options: {
+        en: ['sin x', 'cos x', 'tan x', 'All of them'],
+        af: ['sin x', 'cos x', 'tan x', 'Almal']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 509,
+      level: 1,
+      text: {
+        en: 'Which graph has a y‑intercept of 1?',
+        af: 'Watter grafiek het ’n y‑snypunt van 1?'
+      },
+      options: {
+        en: ['sin x', 'cos x', 'tan x', 'None'],
+        af: ['sin x', 'cos x', 'tan x', 'Geen']
+      },
+      correctIndex: 1
+    },
+    {
+      id: 510,
+      level: 1,
+      text: {
+        en: 'Which function is odd?',
+        af: 'Watter funksie is onewe?'
+      },
+      options: {
+        en: ['sin x', 'cos x', 'Both', 'Neither'],
+        af: ['sin x', 'cos x', 'Albei', 'Geen']
+      },
+      correctIndex: 0
+    },
+
+    // -----------------------------
+    // LEVEL 2 — ROUTINE PROCEDURE (10)
+    // -----------------------------
+    {
+      id: 511,
+      level: 2,
+      text: {
+        en: 'What is the amplitude of y = 3 sin x?',
+        af: 'Wat is die amplitude van y = 3 sin x?'
+      },
+      options: {
+        en: ['1', '2', '3', '6'],
+        af: ['1', '2', '3', '6']
+      },
+      correctIndex: 2
+    },
+    {
+      id: 512,
+      level: 2,
+      text: {
+        en: 'What is the period of y = sin(2x)?',
+        af: 'Wat is die periode van y = sin(2x)?'
+      },
+      options: {
+        en: ['360°', '180°', '90°', '720°'],
+        af: ['360°', '180°', '90°', '720°']
+      },
+      correctIndex: 1
+    },
+    {
+      id: 513,
+      level: 2,
+      text: {
+        en: 'What is the vertical shift in y = sin x + 3?',
+        af: 'Wat is die vertikale verskuiwing in y = sin x + 3?'
+      },
+      options: {
+        en: ['Up 1', 'Up 3', 'Down 1', 'Down 3'],
+        af: ['1 op', '3 op', '1 af', '3 af']
+      },
+      correctIndex: 1
+    },
+    {
+      id: 514,
+      level: 2,
+      text: {
+        en: 'What is the phase shift in y = sin(x − 45°)?',
+        af: 'Wat is die faseskuif in y = sin(x − 45°)?'
+      },
+      options: {
+        en: ['Left 45°', 'Right 45°', 'Up 45°', 'Down 45°'],
+        af: ['45° links', '45° regs', '45° op', '45° af']
+      },
+      correctIndex: 1
+    },
+    {
+      id: 515,
+      level: 2,
+      text: {
+        en: 'What is the amplitude of y = −2 cos x?',
+        af: 'Wat is die amplitude van y = −2 cos x?'
+      },
+      options: {
+        en: ['−2', '2', '1', '0'],
+        af: ['−2', '2', '1', '0']
+      },
+      correctIndex: 1
+    },
+    {
+      id: 516,
+      level: 2,
+      text: {
+        en: 'What is the period of y = tan(3x)?',
+        af: 'Wat is die periode van y = tan(3x)?'
+      },
+      options: {
+        en: ['180°', '60°', '90°', '120°'],
+        af: ['180°', '60°', '90°', '120°']
+      },
+      correctIndex: 1
+    },
+    {
+      id: 517,
+      level: 2,
+      text: {
+        en: 'What is the midline of y = cos x − 4?',
+        af: 'Wat is die middellyn van y = cos x − 4?'
+      },
+      options: {
+        en: ['y = 0', 'y = −4', 'y = 4', 'y = 1'],
+        af: ['y = 0', 'y = −4', 'y = 4', 'y = 1']
+      },
+      correctIndex: 1
+    },
+    {
+      id: 518,
+      level: 2,
+      text: {
+        en: 'What is the amplitude of y = ½ sin x?',
+        af: 'Wat is die amplitude van y = ½ sin x?'
+      },
+      options: {
+        en: ['½', '1', '2', '0'],
+        af: ['½', '1', '2', '0']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 519,
+      level: 2,
+      text: {
+        en: 'What is the period of y = cos(½x)?',
+        af: 'Wat is die periode van y = cos(½x)?'
+      },
+      options: {
+        en: ['360°', '720°', '180°', '90°'],
+        af: ['360°', '720°', '180°', '90°']
+      },
+      correctIndex: 1
+    },
+    {
+      id: 520,
+      level: 2,
+      text: {
+        en: 'What is the phase shift of y = cos(x + 30°)?',
+        af: 'Wat is die faseskuif van y = cos(x + 30°)?'
+      },
+      options: {
+        en: ['Left 30°', 'Right 30°', 'Up 30°', 'Down 30°'],
+        af: ['30° links', '30° regs', '30° op', '30° af']
+      },
+      correctIndex: 0
+    },
+
+    // -----------------------------
+    // LEVEL 3 — COMPLEX PROCEDURE (10)
+    // -----------------------------
+    {
+      id: 521,
+      level: 3,
+      text: {
+        en: 'Describe the transformation from y = sin x to y = 2 sin(x − 30°) + 1.',
+        af: 'Beskryf die transformasie van y = sin x na y = 2 sin(x − 30°) + 1.'
+      },
+      options: {
+        en: [
+          'Amplitude 2, right 30°, up 1',
+          'Amplitude 1, left 30°, up 2',
+          'Amplitude 2, left 30°, down 1',
+          'Amplitude 1, right 30°, up 1'
+        ],
+        af: [
+          'Amplitude 2, 30° regs, 1 op',
+          'Amplitude 1, 30° links, 2 op',
+          'Amplitude 2, 30° links, 1 af',
+          'Amplitude 1, 30° regs, 1 op'
+        ]
+      },
+      correctIndex: 0
+    },
+    {
+      id: 522,
+      level: 3,
+      text: {
+        en: 'Which graph has a period of 120°?',
+        af: 'Watter grafiek het ’n periode van 120°?'
+      },
+      options: {
+        en: ['sin(3x)', 'sin(2x)', 'cos(½x)', 'tan(2x)'],
+        af: ['sin(3x)', 'sin(2x)', 'cos(½x)', 'tan(2x)']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 523,
+      level: 3,
+      text: {
+        en: 'Which function has asymptotes at x = 90° + k·180°?',
+        af: 'Watter funksie het asimptote by x = 90° + k·180°?'
+      },
+      options: {
+        en: ['sin x', 'cos x', 'tan x', 'None'],
+        af: ['sin x', 'cos x', 'tan x', 'Geen']
+      },
+      correctIndex: 2
+    },
+    {
+      id: 524,
+      level: 3,
+      text: {
+        en: 'Which graph has a maximum value of 4 and minimum of −4?',
+        af: 'Watter grafiek het ’n maksimum van 4 en minimum van −4?'
+      },
+      options: {
+        en: ['4 sin x', '2 sin x', 'sin x + 4', 'sin x − 4'],
+        af: ['4 sin x', '2 sin x', 'sin x + 4', 'sin x − 4']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 525,
+      level: 3,
+      text: {
+        en: 'Which graph has a midline of y = −3?',
+        af: 'Watter grafiek het ’n middellyn van y = −3?'
+      },
+      options: {
+        en: ['sin x − 3', '3 sin x', 'sin(x − 3)', 'sin x + 3'],
+        af: ['sin x − 3', '3 sin x', 'sin(x − 3)', 'sin x + 3']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 526,
+      level: 3,
+      text: {
+        en: 'Which graph has amplitude 5 and period 360°?',
+        af: 'Watter grafiek het amplitude 5 en periode 360°?'
+      },
+      options: {
+        en: ['5 sin x', 'sin(5x)', '5 sin(2x)', 'sin(x/5)'],
+        af: ['5 sin x', 'sin(5x)', '5 sin(2x)', 'sin(x/5)']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 527,
+      level: 3,
+      text: {
+        en: 'Which graph is shifted right by 60°?',
+        af: 'Watter grafiek is 60° regs geskuif?'
+      },
+      options: {
+        en: ['sin(x − 60°)', 'sin(x + 60°)', 'cos(x − 60°)', 'tan(x + 60°)'],
+        af: ['sin(x − 60°)', 'sin(x + 60°)', 'cos(x − 60°)', 'tan(x + 60°)']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 528,
+      level: 3,
+      text: {
+        en: 'Which graph has period 720°?',
+        af: 'Watter grafiek het periode 720°?'
+      },
+      options: {
+        en: ['sin(½x)', 'sin(2x)', 'cos(3x)', 'tan(2x)'],
+        af: ['sin(½x)', 'sin(2x)', 'cos(3x)', 'tan(2x)']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 529,
+      level: 3,
+      text: {
+        en: 'Which graph has amplitude 1 and midline y = 2?',
+        af: 'Watter grafiek het amplitude 1 en middellyn y = 2?'
+      },
+      options: {
+        en: ['sin x + 2', '2 sin x', 'sin(x + 2)', 'sin(2x) + 1'],
+        af: ['sin x + 2', '2 sin x', 'sin(x + 2)', 'sin(2x) + 1']
+      },
+      correctIndex: 0
+    },
+    {
+      id: 530,
+      level: 3,
+      text: {
+        en: 'Which graph has amplitude 3 and is shifted up 4?',
+        af: 'Watter grafiek het amplitude 3 en is 4 op geskuif?'
+      },
+      options: {
+        en: ['3 sin x + 4', 'sin(3x) + 4', '3 sin(x + 4)', 'sin x + 3'],
+        af: ['3 sin x + 4', 'sin(3x) + 4', '3 sin(x + 4)', 'sin x + 3']
+      },
+      correctIndex: 0
 
   // ---------- STATE ----------
   let currentLang = 'en';
